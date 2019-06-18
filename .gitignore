@@ -1,0 +1,7 @@
+# project_name/file_name
+
+Shinobu_Mono/Library
+Shinobu_Mono/Library/
+Shinobu_Mono/*.csproj
+Shinobu_Mono/Temp/
+Shinobu_Mono/.vs
