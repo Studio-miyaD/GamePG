@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Unitychan : MonoBehaviour 
+public class UnityChan : MonoBehaviour 
 	{
 
 	public float speed = 4f; //歩くスピード
@@ -145,9 +145,9 @@ public class Unitychan : MonoBehaviour
 	//無敵
 	void OncollisonEnter2D(Collision2D col)
 	{
-		 if (col.gameObject.tag == "Enemy") {
-			 StartCoroutine ("Damage");
-		 }
+		if (col.gameObject.tag == "Enemy") {
+			StartCoroutine ("Damage");
+		}
 	}
 
 	IEnumerator Damage()
