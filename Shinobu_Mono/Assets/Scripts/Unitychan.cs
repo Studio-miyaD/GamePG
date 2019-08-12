@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour 
+public class Unitychan : MonoBehaviour 
 	{
 
 	public float speed = 4f; //歩くスピード
