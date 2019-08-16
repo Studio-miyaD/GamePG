@@ -33,11 +33,10 @@ public class Unitychan : MonoBehaviour
 	// Start is called before the first frame update
 	void Start()
 	{
-	    anim = GetComponent<Animator>();
-	    rigidbody2D = GetComponent<Rigidbody2D>();
+		anim = GetComponent<Animator>();
+		rigidbody2D = GetComponent<Rigidbody2D>();
 		//無敵
 		renderer = GetComponent<Renderer> ();
-	        
 	}
 	//ジャンプ処理3開始
 	void Update ()
@@ -62,15 +61,15 @@ public class Unitychan : MonoBehaviour
 				}
 			}
 		}
-	    //上下への移動速度を取得
-	    float velY = rigidbody2D.velocity.y;
-	    // 移動速度がより0.1大きければ上昇
-	    bool isJumping = velY > 0.1f ? true:false;
-	    //移動速度がより0.1小さければ降下
-	    bool isFalling = velY < -0.1f ? true:false;
-	    // 結果をアニメータービューの変数は反映する
-	    anim.SetBool("isJumping", isJumping);
-	    anim.SetBool("isFalling", isFalling);
+	  //上下への移動速度を取得
+		float velY = rigidbody2D.velocity.y;
+	  // 移動速度がより0.1大きければ上昇
+		bool isJumping = velY > 0.1f ? true:false;
+	  //移動速度がより0.1小さければ降下
+		bool isFalling = velY < -0.1f ? true:false;
+	  // 結果をアニメータービューの変数は反映する
+		anim.SetBool("isJumping", isJumping);
+		anim.SetBool("isFalling", isFalling);
 
 		//gameclear
 		if (!gameClear) {
@@ -111,8 +110,8 @@ public class Unitychan : MonoBehaviour
 				if (transform.position.x > mainCamera.transform.position.x - 4) {
 					// カメラの位置を取得
 					Vector3 cameraPos = mainCamera.transform.position;
-					//ユニティちゃんの位置から右に4移動した位置を画面中央にする
-					cameraPos.x = transform.position.x + 4;
+					//ユニティちゃんの位置を画面中央にする
+					cameraPos.x = transform.position.x;
 					mainCamera.transform.position = cameraPos;
 				}
 
