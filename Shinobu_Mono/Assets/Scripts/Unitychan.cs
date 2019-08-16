@@ -12,7 +12,7 @@ public class Unitychan : MonoBehaviour
 	public LayerMask groundLayer; //Linecastで判定するLayer
 	//ジャンプ処理1終了
 	//カメラ処理1
-	public GameObject mainCamera;
+	//public GameObject mainCamera;
 	// カメラ処理1終了
 	//Bullet1
 	public GameObject bullet;
@@ -43,8 +43,9 @@ public class Unitychan : MonoBehaviour
 	void Update ()
 	{
 	    //Listcastでユニティちゃんの足元に地面があるか判定
-	    isGrounded = Physics2D.Linecast(transform.position + transform.up * 1, transform.position -
-	    transform.up * 0.05f, groundLayer);
+	    //isGrounded = Physics2D.Linecast(transform.position + transform.up * 1, transform.position -
+	    //transform.up * 0.05f, groundLayer);
+		isGrounded = true;
 		//gameclear
 		if (!gameClear) {
 			// スペースキーを押し
@@ -106,6 +107,7 @@ public class Unitychan : MonoBehaviour
 
 				//カメラ処理2
 				//画面中央から左に4移動した位置をユニティちゃんが超えたら
+				/*
 				if (transform.position.x > mainCamera.transform.position.x - 4) {
 					// カメラの位置を取得
 					Vector3 cameraPos = mainCamera.transform.position;
@@ -124,6 +126,7 @@ public class Unitychan : MonoBehaviour
 				pos.x = Mathf.Clamp (pos.x, min.x + 0.5f, max.x);
 				transform.position = pos;
 				//カメラ処理2終了
+				*/
 
 				//左も右も入力していなかったら
 			} else {
