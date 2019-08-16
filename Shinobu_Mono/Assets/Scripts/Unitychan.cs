@@ -42,9 +42,7 @@ public class Unitychan : MonoBehaviour
 	void Update ()
 	{
 	    //Listcastでユニティちゃんの足元に地面があるか判定
-	    //isGrounded = Physics2D.Linecast(transform.position + transform.up * 1, transform.position -
-	    //transform.up * 0.05f, groundLayer);
-		isGrounded = true;
+	   	isGrounded = Physics2D.Linecast(transform.position + transform.up * 1, transform.position -transform.up * 0.05f, groundLayer);
 		//gameclear
 		if (!gameClear) {
 			// スペースキーを押し
