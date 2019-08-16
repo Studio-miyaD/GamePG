@@ -43,6 +43,7 @@ public class Unitychan : MonoBehaviour
 	{
 	    //Listcastでユニティちゃんの足元に地面があるか判定
 	   	isGrounded = Physics2D.Linecast(transform.position + transform.up * 1, transform.position -transform.up * 0.05f, groundLayer);
+
 		//gameclear
 		if (!gameClear) {
 			// スペースキーを押し
@@ -59,15 +60,17 @@ public class Unitychan : MonoBehaviour
 				}
 			}
 		}
-	  //上下への移動速度を取得
-		float velY = rigidbody2D.velocity.y;
-	  // 移動速度がより0.1大きければ上昇
-		bool isJumping = velY > 0.1f ? true:false;
-	  //移動速度がより0.1小さければ降下
-		bool isFalling = velY < -0.1f ? true:false;
-	  // 結果をアニメータービューの変数は反映する
-		anim.SetBool("isJumping", isJumping);
-		anim.SetBool("isFalling", isFalling);
+
+			//上下への移動速度を取得
+			float velY = rigidbody2D.velocity.y;
+			// 移動速度がより0.1大きければ上昇
+			bool isJumping = velY > 0.1f ? true:false;
+			//移動速度がより0.1小さければ降下
+			bool isFalling = velY < -0.1f ? true:false;
+			// 結果をアニメータービューの変数は反映する
+			anim.SetBool("isJumping", isJumping);
+			anim.SetBool("isFalling", isFalling);
+			
 
 		//gameclear
 		if (!gameClear) {
