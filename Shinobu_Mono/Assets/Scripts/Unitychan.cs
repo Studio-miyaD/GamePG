@@ -29,6 +29,9 @@ public class Unitychan : MonoBehaviour
 	private Renderer renderer;
 	//gameclear
 	private bool gameClear = false; //ゲームクリアしたら操作不能にする
+
+	// gameover
+	private bool gameOver = false; // ゲームオーバーになったらタイトルに戻る
 	public Text clearText; //ゲームクリアー時に表示するテキスト
 	// Start is called before the first frame update
 	void Start()
@@ -80,7 +83,7 @@ public class Unitychan : MonoBehaviour
 				Instantiate (bullet, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
 			}
 			//gameover
-			if (gameObject.transform.position.y < Camera.main.transform.position.y - 8) {
+			if (gameOver) {
 				//LifeScriptのGameOverメソッドを実行
 				lifeScript.GameOver ();
 			}
@@ -179,6 +182,10 @@ public class Unitychan : MonoBehaviour
 		if (col.tag == "ClearZone") {
 			//ゲームクリアー
 			gameClear = true;
+		}
+				// 
+		if (col.tag == "AbyssZone") {
+			gameOver = true;
 		}
 	}
 
