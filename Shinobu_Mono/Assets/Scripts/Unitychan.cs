@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Unitychan : MonoBehaviour 
 	{
@@ -82,7 +83,7 @@ public class Unitychan : MonoBehaviour
 				anim.SetTrigger ("Shot");
 				Instantiate (bullet, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
 			}
-			//gameover
+		//gameover
 			if (gameOver) {
 				//LifeScriptのGameOverメソッドを実行
 				lifeScript.GameOver ();
@@ -133,7 +134,7 @@ public class Unitychan : MonoBehaviour
 
 				//左も右も入力していなかったら
 			} else {
-				// 横移動の速度をにしてピタッと止まるようにする
+				// 横移動の速度を0にしてピタッと止まるようにする
 				rigidbody2D.velocity = new Vector2 (0, rigidbody2D.velocity.y);
 				//dash→wait
 				anim.SetBool ("Dash", false);
@@ -178,20 +179,22 @@ public class Unitychan : MonoBehaviour
 	//gameclear
 	void OnTriggerEnter2D(Collider2D col) 
 	{
+		// タグがAbyssZoneであるTriggerにぶつかったら
+		if (col.tag == "AbyssZone") {
+			//ゲームオーバー
+			gameOver = true;
+		}
+
 		//タグがClearZoneであるTriggerにぶつかったら
 		if (col.tag == "ClearZone") {
 			//ゲームクリアー
 			gameClear = true;
-		}
-				// 
-		if (col.tag == "AbyssZone") {
-			gameOver = true;
 		}
 	}
 
 	void CallTitle()
 	{
 		//タイトル画面へ
-		Application.LoadLevel("Title");
+		SceneManager.LoadScene("Title");
 	}
 }

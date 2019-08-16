@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Life : MonoBehaviour {
 
@@ -36,7 +37,7 @@ public class Life : MonoBehaviour {
 			//画面をクリックすると
 			if (Input.GetMouseButtonDown (0)) {
 				//タイトルへ戻る
-				Application.LoadLevel("Title");
+				SceneManager.LoadScene("Title");
 			}
 		}
 	}

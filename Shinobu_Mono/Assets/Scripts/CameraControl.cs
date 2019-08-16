@@ -14,11 +14,13 @@ public class CameraControl : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void LateUpdate () {
-		Vector3 newPosition = transform.position;
-		newPosition.x = player.transform.position.x + offset.x;
-		newPosition.y = player.transform.position.y + offset.y;
-		newPosition.z = player.transform.position.z + offset.z;
+	void LateUpdate ()
+  {
+		if (player == null) { return; } 
+    Vector3 newPosition = transform.position;
+    newPosition.x = player.transform.position.x + offset.x;
+    newPosition.y = player.transform.position.y + offset.y;
+    newPosition.z = player.transform.position.z + offset.z;
 		transform.position = newPosition;
-	}
+  }
 }
