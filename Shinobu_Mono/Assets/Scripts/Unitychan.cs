@@ -148,9 +148,9 @@ public class Unitychan : MonoBehaviour
 	//無敵
 	void OncollisonEnter2D(Collision2D col)
 	{
-		 if (col.gameObject.tag == "Enemy") {
-			 StartCoroutine ("Damage");
-		 }
+		if (col.gameObject.tag == "Enemy") {
+			StartCoroutine ("Damage");
+		}
 	}
 
 	IEnumerator Damage()
