@@ -36,6 +36,8 @@ public class Unitychan : MonoBehaviour
 
 	// gameover
 	private bool gameOver = false; // ゲームオーバーになったらタイトルに戻る
+
+	private bool goal = false; // 建物に入ったらステージを遷移させる
 	public Text clearText; //ゲームクリアー時に表示するテキスト
 	// Start is called before the first frame update
 	void Start()
@@ -153,11 +155,25 @@ public class Unitychan : MonoBehaviour
 		} else {
 			//クリアーテキストを表示
 			clearText.enabled = true;
-			anim.SetBool ("Dash", true);
-			rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
-			//5秒後にタイトル画面に戻るCallTitleメソッドを呼び出す
+			
+			if (goal) {
+				// プレイヤーの色を透明にする
+				Color color = renderer.material.color;
+				color.a = 0f;
+				renderer.material.color = color;
 
-			Invoke ("CallTitle", 5);
+				// 横移動の速度を0にしてピタッと止まるようにする
+				rigidbody2D.velocity = new Vector2 (0, rigidbody2D.velocity.y);
+				//dash→wait
+				anim.SetBool ("Dash", false);
+
+			} else {
+				anim.SetBool ("Dash", true);
+				rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
+				//5秒後にタイトル画面に戻るCallTitleメソッドを呼び出す
+
+				Invoke ("CallTitle", 5);
+			}
 		}
 
 		//jump
@@ -215,6 +231,9 @@ public class Unitychan : MonoBehaviour
 		if (col.tag == "ClearZone") {
 			//ゲームクリアー
 			gameClear = true;
+		}
+		if (col.tag == "Goal") {
+			goal = true;
 		}
 	}
 
