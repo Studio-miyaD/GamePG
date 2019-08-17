@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class Unitychan : MonoBehaviour 
+public class UnitychanB : MonoBehaviour 
 	{
 
 	public float speed = 4f; //歩くスピード
@@ -24,7 +24,10 @@ public class Unitychan : MonoBehaviour
 	private Rigidbody2D rigidbody2D;
 	private Animator anim;
 	//ジャンプ処理2開始
-	private bool isGrounded; //着地判定
+	//private bool isGrounded; //着地判定
+	private bool isJump = false;
+	public const int MAX_JUMP_COUNT = 2;
+	private int jumpCount = 0;
 	// ジャンプ処理2終了
 	//無敵
 	private Renderer renderer;
@@ -46,11 +49,13 @@ public class Unitychan : MonoBehaviour
 	void Update ()
 	{
 	    //Listcastでユニティちゃんの足元に地面があるか判定
-	   	isGrounded = Physics2D.Linecast(transform.position + transform.up * 1, transform.position -transform.up * 0.05f, groundLayer);
+	   	//isGrounded = Physics2D.Linecast(transform.position + transform.up * 1, transform.position -transform.up * 0.05f, groundLayer);
 
+	    //isGrounded = Physics2D.Linecast(transform.position + transform.up * 1, transform.position - transform.up * 0.05f, groundLayer);
 		//gameclear
 		if (!gameClear) {
 			// スペースキーを押し
+			/*
 			if (Input.GetKeyDown ("space")) {
 				//着地していた時
 				if (isGrounded) {
@@ -61,6 +66,12 @@ public class Unitychan : MonoBehaviour
 					isGrounded = false;
 					//AddForceにて上方向へ力を加える
 					rigidbody2D.AddForce (Vector2.up * jumpPower);
+				}
+			}
+			*/
+			if (Input.GetKeyDown ("space")) {
+				if (jumpCount < MAX_JUMP_COUNT) {
+					isJump = true;
 				}
 			}
 		}
@@ -148,12 +159,27 @@ public class Unitychan : MonoBehaviour
 
 			Invoke ("CallTitle", 5);
 		}
+
+		//jump
+		if (isJump) {
+			rigidbody2D.velocity = Vector2.zero;
+			anim.SetBool ("Dash", false);
+			anim.SetTrigger ("Jump");
+			rigidbody2D.AddForce (Vector2.up * jumpPower);
+			jumpCount++;
+			isJump = false;
+		}
 	}
 	//無敵
-	void OncollisonEnter2D(Collision2D col)
+	void OnCollisonEnter2D(Collision2D col)
 	{
-		if (col.gameObject.tag == "Enemy") {
-			StartCoroutine ("Damage");
+		 if (col.gameObject.tag == "Enemy") {
+			 StartCoroutine ("Damage");
+		 }
+	}
+	void OnCollisionEnter2D(Collision2D other) {
+		if (other.gameObject.tag == "Ground") {
+			jumpCount = 0;
 		}
 	}
 
