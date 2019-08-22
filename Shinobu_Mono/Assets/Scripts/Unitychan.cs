@@ -22,6 +22,8 @@ public class Unitychan : MonoBehaviour
 	public Life lifeScript;
 
 	private Rigidbody2D rigidbody2D;
+	private BoxCollider2D boxCollider2D;
+	private CircleCollider2D circleCollider2D;
 	private Animator anim;
 	//ジャンプ処理2開始
 	//private bool isGrounded; //着地判定
@@ -40,6 +42,8 @@ public class Unitychan : MonoBehaviour
 	private bool goal = false; // 建物に入ったらステージを遷移させる
 	public Text clearText; //ゲームクリアー時に表示するテキスト
 	// Start is called before the first frame update
+
+	public bool isChange;
 	void Start()
 	{
 		anim = GetComponent<Animator>();
@@ -75,6 +79,10 @@ public class Unitychan : MonoBehaviour
 				if (jumpCount < MAX_JUMP_COUNT) {
 					isJump = true;
 				}
+			}
+			if (Input.GetKeyDown ("c")) {
+				isChange = !isChange;
+				anim.SetBool ("Change", isChange);
 			}
 		}
 

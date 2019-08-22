@@ -12,6 +12,9 @@ public class Enemy1 : MonoBehaviour
 	public int attackPoint = 10;
 	public GameObject item;
 	private Life lifeScript;
+
+	public float zeroPos;
+
 	//待機
 	private const string MAIN_CAMERA_TAG_NAME = "MainCamera";
 	//カメラに写っているかの判定
@@ -21,12 +24,23 @@ public class Enemy1 : MonoBehaviour
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
 		lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
+		zeroPos = transform.position.x;
     }
 
     void Update()
     {
-		if (_isRendered) {
+		if (_isRendered) { // カメラに写っている
 			rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
+			if(transform.position.x < zeroPos - 2 && speed < 0)
+				speed += 6;
+			}
+			if(zeroPos + 2 < transform.position.x && 0 < speed){
+				speed -= 6;
+			}
+		//敵の消滅
+			if (gameObject.transform.position.y < Camera.main.transform.position.y - 8
+		    	|| gameObject.transform.position.x < Camera.main.transform.position.x - 20) {
+				Destroy (gameObject);
 		}
 		// 敵を消す範囲
 		if (gameObject.transform.position.y < Camera.main.transform.position.y - 15
