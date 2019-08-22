@@ -157,7 +157,8 @@ public class Unitychan : MonoBehaviour
 		}
 	}
 	void OnCollisionEnter2D(Collision2D other) {
-		if (other.gameObject.tag == "Ground") {
+		string layerName = LayerMask.LayerToName(other.gameObject.layer);
+		if (layerName == "Ground") {
 			jumpCount = 0;
 		}
 	}
@@ -184,7 +185,7 @@ public class Unitychan : MonoBehaviour
 	//gameclear
 	void OnTriggerEnter2D(Collider2D col) 
 	{
-		// タグがAbyssZoneであるTriggerにぶつかったら
+		//タグがAbyssZoneであるTriggerにぶつかったら
 		if (col.tag == "AbyssZone") {
 			//ゲームオーバー
 			gameOver = true;
