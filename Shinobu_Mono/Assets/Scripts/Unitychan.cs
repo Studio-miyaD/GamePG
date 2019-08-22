@@ -13,6 +13,7 @@ public class Unitychan : MonoBehaviour
 	//ジャンプ処理1終了
 	//Bullet1
 	public GameObject bullet;
+	public GameObject bullet2;
 	//Bullet1 fin
 	//gameover
 	public Life lifeScript;
@@ -79,8 +80,13 @@ public class Unitychan : MonoBehaviour
 		if (!gameClear) {
 			//Bullet2 begin
 			if (Input.GetKeyDown ("left ctrl")) {
-				anim.SetTrigger ("Shot");
+				anim.SetTrigger ("Shot"); 
+				if (isChange) {
+				Instantiate (bullet2, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
+				}
+				if (!isChange) {
 				Instantiate (bullet, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
+				}
 			}
 		//gameover
 			if (gameOver) {
