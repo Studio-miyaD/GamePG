@@ -30,5 +30,9 @@ public class BulletScripts : MonoBehaviour
         if (col.gameObject.tag == "Enemy") {
             Destroy(gameObject);
         }
+        string layerName = LayerMask.LayerToName(col.gameObject.layer);
+		if (layerName == "Ground") {
+			Destroy(gameObject, 0.01f);
+		}
     }
 }
