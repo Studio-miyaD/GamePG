@@ -13,8 +13,6 @@ public class Enemy1 : MonoBehaviour
 	public GameObject item;
 	private Life lifeScript;
 
-	public float zeroPos;
-
 	//待機
 	private const string MAIN_CAMERA_TAG_NAME = "MainCamera";
 	//カメラに写っているかの判定
@@ -24,7 +22,6 @@ public class Enemy1 : MonoBehaviour
     {
         rigidbody2D = GetComponent<Rigidbody2D>();
 		lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
-		zeroPos = transform.position.x;
     }
 
     void Update()
