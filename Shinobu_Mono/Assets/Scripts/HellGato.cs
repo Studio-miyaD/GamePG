@@ -29,8 +29,8 @@ public class HellGato : MonoBehaviour
 			rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
 		}
 		//gameover
-		if (gameObject.transform.position.y < Camera.main.transform.position.y - 8
-			|| gameObject.transform.position.x < Camera.main.transform.position.x - 10) {
+		if (gameObject.transform.position.y < Camera.main.transform.position.y - 15
+			|| gameObject.transform.position.x < Camera.main.transform.position.x - 30) {
 			Destroy (gameObject);
 		}
 	}
