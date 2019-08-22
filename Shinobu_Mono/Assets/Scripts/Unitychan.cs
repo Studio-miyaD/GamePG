@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Unitychan : MonoBehaviour 
 	{
@@ -12,7 +13,7 @@ public class Unitychan : MonoBehaviour
 	public LayerMask groundLayer; //Linecastで判定するLayer
 	//ジャンプ処理1終了
 	//カメラ処理1
-	public GameObject mainCamera;
+	//public GameObject mainCamera;
 	// カメラ処理1終了
 	//Bullet1
 	public GameObject bullet;
@@ -23,12 +24,20 @@ public class Unitychan : MonoBehaviour
 	private Rigidbody2D rigidbody2D;
 	private Animator anim;
 	//ジャンプ処理2開始
-	private bool isGrounded; //着地判定
+	//private bool isGrounded; //着地判定
+	private bool isJump = false;
+	public const int MAX_JUMP_COUNT = 2;
+	private int jumpCount = 0;
 	// ジャンプ処理2終了
 	//無敵
 	private Renderer renderer;
 	//gameclear
 	private bool gameClear = false; //ゲームクリアしたら操作不能にする
+
+	// gameover
+	private bool gameOver = false; // ゲームオーバーになったらタイトルに戻る
+
+	private bool goal = false; // 建物に入ったらステージを遷移させる
 	public Text clearText; //ゲームクリアー時に表示するテキスト
 	// Start is called before the first frame update
 	void Start()
@@ -42,11 +51,13 @@ public class Unitychan : MonoBehaviour
 	void Update ()
 	{
 	    //Listcastでユニティちゃんの足元に地面があるか判定
-	    isGrounded = Physics2D.Linecast(transform.position + transform.up * 1, transform.position -
-	    transform.up * 0.05f, groundLayer);
+	   	//isGrounded = Physics2D.Linecast(transform.position + transform.up * 1, transform.position -transform.up * 0.05f, groundLayer);
+
+	    //isGrounded = Physics2D.Linecast(transform.position + transform.up * 1, transform.position - transform.up * 0.05f, groundLayer);
 		//gameclear
 		if (!gameClear) {
 			// スペースキーを押し
+			/*
 			if (Input.GetKeyDown ("space")) {
 				//着地していた時
 				if (isGrounded) {
@@ -59,16 +70,24 @@ public class Unitychan : MonoBehaviour
 					rigidbody2D.AddForce (Vector2.up * jumpPower);
 				}
 			}
+			*/
+			if (Input.GetKeyDown ("space")) {
+				if (jumpCount < MAX_JUMP_COUNT) {
+					isJump = true;
+				}
+			}
 		}
-	  //上下への移動速度を取得
-		float velY = rigidbody2D.velocity.y;
-	  // 移動速度がより0.1大きければ上昇
-		bool isJumping = velY > 0.1f ? true:false;
-	  //移動速度がより0.1小さければ降下
-		bool isFalling = velY < -0.1f ? true:false;
-	  // 結果をアニメータービューの変数は反映する
-		anim.SetBool("isJumping", isJumping);
-		anim.SetBool("isFalling", isFalling);
+
+			//上下への移動速度を取得
+			float velY = rigidbody2D.velocity.y;
+			// 移動速度がより0.1大きければ上昇
+			bool isJumping = velY > 0.1f ? true:false;
+			//移動速度がより0.1小さければ降下
+			bool isFalling = velY < -0.1f ? true:false;
+			// 結果をアニメータービューの変数は反映する
+			anim.SetBool("isJumping", isJumping);
+			anim.SetBool("isFalling", isFalling);
+			
 
 		//gameclear
 		if (!gameClear) {
@@ -77,8 +96,8 @@ public class Unitychan : MonoBehaviour
 				anim.SetTrigger ("Shot");
 				Instantiate (bullet, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
 			}
-			//gameover
-			if (gameObject.transform.position.y < Camera.main.transform.position.y - 8) {
+		//gameover
+			if (gameOver) {
 				//LifeScriptのGameOverメソッドを実行
 				lifeScript.GameOver ();
 			}
@@ -105,6 +124,7 @@ public class Unitychan : MonoBehaviour
 
 				//カメラ処理2
 				//画面中央から左に4移動した位置をユニティちゃんが超えたら
+				/*
 				if (transform.position.x > mainCamera.transform.position.x - 4) {
 					// カメラの位置を取得
 					Vector3 cameraPos = mainCamera.transform.position;
@@ -123,10 +143,11 @@ public class Unitychan : MonoBehaviour
 				pos.x = Mathf.Clamp (pos.x, min.x + 0.5f, max.x);
 				transform.position = pos;
 				//カメラ処理2終了
+				*/
 
 				//左も右も入力していなかったら
 			} else {
-				// 横移動の速度をにしてピタッと止まるようにする
+				// 横移動の速度を0にしてピタッと止まるようにする
 				rigidbody2D.velocity = new Vector2 (0, rigidbody2D.velocity.y);
 				//dash→wait
 				anim.SetBool ("Dash", false);
@@ -134,18 +155,47 @@ public class Unitychan : MonoBehaviour
 		} else {
 			//クリアーテキストを表示
 			clearText.enabled = true;
-			anim.SetBool ("Dash", true);
-			rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
-			//5秒後にタイトル画面に戻るCallTitleメソッドを呼び出す
+			
+			if (goal) {
+				// プレイヤーの色を透明にする
+				Color color = renderer.material.color;
+				color.a = 0f;
+				renderer.material.color = color;
 
-			Invoke ("CallTitle", 5);
+				// 横移動の速度を0にしてピタッと止まるようにする
+				rigidbody2D.velocity = new Vector2 (0, rigidbody2D.velocity.y);
+				//dash→wait
+				anim.SetBool ("Dash", false);
+
+			} else {
+				anim.SetBool ("Dash", true);
+				rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
+				//5秒後にタイトル画面に戻るCallTitleメソッドを呼び出す
+
+				Invoke ("CallTitle", 5);
+			}
+		}
+
+		//jump
+		if (isJump) {
+			rigidbody2D.velocity = Vector2.zero;
+			anim.SetBool ("Dash", false);
+			anim.SetTrigger ("Jump");
+			rigidbody2D.AddForce (Vector2.up * jumpPower);
+			jumpCount++;
+			isJump = false;
 		}
 	}
 	//無敵
-	void OncollisonEnter2D(Collision2D col)
+	void OnCollisonEnter2D(Collision2D col)
 	{
-		if (col.gameObject.tag == "Enemy") {
-			StartCoroutine ("Damage");
+		 if (col.gameObject.tag == "Enemy") {
+			 StartCoroutine ("Damage");
+		 }
+	}
+	void OnCollisionEnter2D(Collision2D other) {
+		if (other.gameObject.tag == "Ground") {
+			jumpCount = 0;
 		}
 	}
 
@@ -171,16 +221,25 @@ public class Unitychan : MonoBehaviour
 	//gameclear
 	void OnTriggerEnter2D(Collider2D col) 
 	{
+		// タグがAbyssZoneであるTriggerにぶつかったら
+		if (col.tag == "AbyssZone") {
+			//ゲームオーバー
+			gameOver = true;
+		}
+
 		//タグがClearZoneであるTriggerにぶつかったら
 		if (col.tag == "ClearZone") {
 			//ゲームクリアー
 			gameClear = true;
+		}
+		if (col.tag == "Goal") {
+			goal = true;
 		}
 	}
 
 	void CallTitle()
 	{
 		//タイトル画面へ
-		Application.LoadLevel("Title");
+		SceneManager.LoadScene("Title");
 	}
 }

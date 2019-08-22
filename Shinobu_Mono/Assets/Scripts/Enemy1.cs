@@ -29,8 +29,8 @@ public class Enemy1 : MonoBehaviour
 			rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
 		}
 		// 敵を消す範囲
-		if (gameObject.transform.position.y < Camera.main.transform.position.y - 8
-		    || gameObject.transform.position.x < Camera.main.transform.position.x - 20) {
+		if (gameObject.transform.position.y < Camera.main.transform.position.y - 15
+		    || gameObject.transform.position.x < Camera.main.transform.position.x - 30) {
 			Destroy (gameObject);
 		}
     }
