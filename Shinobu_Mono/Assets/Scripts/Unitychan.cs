@@ -6,15 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class Unitychan : MonoBehaviour 
 	{
-
 	public float speed = 4f; //歩くスピード
 	//ジャンプ処理1開始
 	public float jumpPower = 700; // ジャンプ力
 	public LayerMask groundLayer; //Linecastで判定するLayer
 	//ジャンプ処理1終了
-	//カメラ処理1
-	//public GameObject mainCamera;
-	// カメラ処理1終了
 	//Bullet1
 	public GameObject bullet;
 	//Bullet1 fin
@@ -54,27 +50,9 @@ public class Unitychan : MonoBehaviour
 	//ジャンプ処理3開始
 	void Update ()
 	{
-	    //Listcastでユニティちゃんの足元に地面があるか判定
-	   	//isGrounded = Physics2D.Linecast(transform.position + transform.up * 1, transform.position -transform.up * 0.05f, groundLayer);
-
-	    //isGrounded = Physics2D.Linecast(transform.position + transform.up * 1, transform.position - transform.up * 0.05f, groundLayer);
 		//gameclear
 		if (!gameClear) {
 			// スペースキーを押し
-			/*
-			if (Input.GetKeyDown ("space")) {
-				//着地していた時
-				if (isGrounded) {
-					//Dashアニメーションを止めて、Jumpアニメーションを実行
-					anim.SetBool ("Dash", false);
-					anim.SetTrigger ("Jump");
-					// 着地判定をfalse
-					isGrounded = false;
-					//AddForceにて上方向へ力を加える
-					rigidbody2D.AddForce (Vector2.up * jumpPower);
-				}
-			}
-			*/
 			if (Input.GetKeyDown ("space")) {
 				if (jumpCount < MAX_JUMP_COUNT) {
 					isJump = true;
@@ -130,29 +108,6 @@ public class Unitychan : MonoBehaviour
 				//wait→dash
 				anim.SetBool ("Dash", true);
 
-				//カメラ処理2
-				//画面中央から左に4移動した位置をユニティちゃんが超えたら
-				/*
-				if (transform.position.x > mainCamera.transform.position.x - 4) {
-					// カメラの位置を取得
-					Vector3 cameraPos = mainCamera.transform.position;
-					//ユニティちゃんの位置を画面中央にする
-					cameraPos.x = transform.position.x;
-					mainCamera.transform.position = cameraPos;
-				}
-
-				// カメラ表示領域の左下をワールド座標に変換
-				Vector2 min = Camera.main.ViewportToWorldPoint (new Vector2 (0, 0));
-				//カメラ表示領域の右上をワールド座標に変換
-				Vector2 max = Camera.main.ViewportToWorldPoint (new Vector2 (1, 1));
-				//ユニティちゃんのポジションを取得
-				Vector2 pos = transform.position;
-				// ユニティちゃんのx座標の移動範囲をClampメソッドで制限
-				pos.x = Mathf.Clamp (pos.x, min.x + 0.5f, max.x);
-				transform.position = pos;
-				//カメラ処理2終了
-				*/
-
 				//左も右も入力していなかったら
 			} else {
 				// 横移動の速度を0にしてピタッと止まるようにする
@@ -197,9 +152,9 @@ public class Unitychan : MonoBehaviour
 	//無敵
 	void OnCollisonEnter2D(Collision2D col)
 	{
-		 if (col.gameObject.tag == "Enemy") {
-			 StartCoroutine ("Damage");
-		 }
+		if (col.gameObject.tag == "Enemy") {
+			StartCoroutine ("Damage");
+		}
 	}
 	void OnCollisionEnter2D(Collision2D other) {
 		if (other.gameObject.tag == "Ground") {
