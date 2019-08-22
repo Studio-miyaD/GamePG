@@ -45,6 +45,10 @@ public class Life : MonoBehaviour {
 		//RectTransformのサイズを取得し、マイナスする
 		rt.sizeDelta -= new Vector2(0, ap);
 	}
+	public void LifeDown (float ap) {
+		//RectTransformのサイズを取得し、マイナスする
+		rt.sizeDelta -= new Vector2(0, ap);
+	}
 
 	//回復
 	public void LifeUp(int hp) {
