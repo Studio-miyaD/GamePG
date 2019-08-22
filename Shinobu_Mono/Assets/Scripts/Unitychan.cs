@@ -21,6 +21,8 @@ public class Unitychan : MonoBehaviour
 	public Life lifeScript;
 
 	private Rigidbody2D rigidbody2D;
+	private BoxCollider2D boxCollider2D;
+	private CircleCollider2D circleCollider2D;
 	private Animator anim;
 	//ジャンプ処理2開始
 	private bool isGrounded; //着地判定
@@ -31,6 +33,8 @@ public class Unitychan : MonoBehaviour
 	private bool gameClear = false; //ゲームクリアしたら操作不能にする
 	public Text clearText; //ゲームクリアー時に表示するテキスト
 	// Start is called before the first frame update
+
+	public bool isChange;
 	void Start()
 	{
 	    anim = GetComponent<Animator>();
@@ -45,6 +49,8 @@ public class Unitychan : MonoBehaviour
 	    //Listcastでユニティちゃんの足元に地面があるか判定
 	    isGrounded = Physics2D.Linecast(transform.position + transform.up * 1, transform.position -
 	    transform.up * 0.05f, groundLayer);
+		Debug.DrawLine(transform.position + transform.up * 1, transform.position -
+	    transform.up * 0.05f, Color.red);
 		//gameclear
 		if (!gameClear) {
 			// スペースキーを押し
@@ -59,6 +65,10 @@ public class Unitychan : MonoBehaviour
 					//AddForceにて上方向へ力を加える
 					rigidbody2D.AddForce (Vector2.up * jumpPower);
 				}
+			}
+			if (Input.GetKeyDown ("c")) {
+				isChange = !isChange;
+				anim.SetBool ("Change", isChange);
 			}
 		}
 	    //上下への移動速度を取得
@@ -110,7 +120,7 @@ public class Unitychan : MonoBehaviour
 					// カメラの位置を取得
 					Vector3 cameraPos = mainCamera.transform.position;
 					//ユニティちゃんの位置から右に4移動した位置を画面中央にする
-					cameraPos.x = transform.position.x + 4;
+					cameraPos.x = transform.position.x;
 					mainCamera.transform.position = cameraPos;
 				}
 
