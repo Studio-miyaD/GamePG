@@ -31,16 +31,6 @@ public class Enemy1 : MonoBehaviour
     {
 		if (_isRendered) { // カメラに写っている
 			rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
-			if(transform.position.x < zeroPos - 2 && speed < 0)
-				speed += 6;
-			}
-			if(zeroPos + 2 < transform.position.x && 0 < speed){
-				speed -= 6;
-			}
-		//敵の消滅
-			if (gameObject.transform.position.y < Camera.main.transform.position.y - 8
-		    	|| gameObject.transform.position.x < Camera.main.transform.position.x - 20) {
-				Destroy (gameObject);
 		}
 		// 敵を消す範囲
 		if (gameObject.transform.position.y < Camera.main.transform.position.y - 15
