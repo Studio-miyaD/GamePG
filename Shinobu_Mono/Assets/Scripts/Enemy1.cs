@@ -12,6 +12,7 @@ public class Enemy1 : MonoBehaviour
 	public int attackPoint = 10;
 	public GameObject item;
 	private Life lifeScript;
+
 	//待機
 	private const string MAIN_CAMERA_TAG_NAME = "MainCamera";
 	//カメラに写っているかの判定
@@ -25,7 +26,7 @@ public class Enemy1 : MonoBehaviour
 
     void Update()
     {
-		if (_isRendered) {
+		if (_isRendered) { // カメラに写っている
 			rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
 		}
 		// 敵を消す範囲
