@@ -170,14 +170,11 @@ public class Unitychan : MonoBehaviour
 		if (layerName == "Wall") {
 			jumpCount = 0;
 			isWall = true;
-			Debug.Log("W");
-		}
+  }
 		if (layerName == "Ground") {
 			jumpCount = 0;
 			isWall = false;
-			Debug.Log("G");
 		}
-		
 	}
 
 	IEnumerator Damage()
