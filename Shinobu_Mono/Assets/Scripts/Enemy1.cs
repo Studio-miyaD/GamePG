@@ -17,6 +17,8 @@ public class Enemy1 : MonoBehaviour
 	private const string MAIN_CAMERA_TAG_NAME = "MainCamera";
 	//カメラに写っているかの判定
 	private bool _isRendered = false;
+	//効果音
+	public AudioClip enemyDestroy;
 
     void Start()
     {
@@ -41,6 +43,7 @@ public class Enemy1 : MonoBehaviour
     {
 		if (_isRendered) {
 			if (col.tag == "Bullet") {
+				AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
 				Destroy (gameObject);
 				Instantiate (explosion, transform.position, transform.rotation);
 				if (Random.Range (0, 2) == 0) {
