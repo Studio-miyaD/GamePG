@@ -28,11 +28,6 @@ public class HellGato : MonoBehaviour
 		if (_isRendered) {
 			rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
 		}
-		//gameover
-		if (gameObject.transform.position.y < Camera.main.transform.position.y - 15
-			|| gameObject.transform.position.x < Camera.main.transform.position.x - 30) {
-			Destroy (gameObject);
-		}
 	}
 
 	//爆発処理2
@@ -40,12 +35,16 @@ public class HellGato : MonoBehaviour
 	{
 		if (_isRendered) {
 			if (col.tag == "Bullet") {
+				// AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
 				Destroy (gameObject);
 				Instantiate (explosion, transform.position, transform.rotation);
 				if (Random.Range (0, 2) == 0) {
 					Instantiate (item, transform.position, transform.rotation);
 				}
 			}
+		}
+		if (col.tag == "AbyssZone") {
+			Destroy (gameObject);
 		}
 	}
 

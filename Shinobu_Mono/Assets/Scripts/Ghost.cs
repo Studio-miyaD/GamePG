@@ -33,24 +33,20 @@ public class Ghost : MonoBehaviour
 		//ghost
 		TimeCount -= Time.deltaTime;
 		if (_isRendered) {
-			rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
-		}
-		if (TimeCount <= 0) {
-			//画像をx軸のみに対して反転
-			transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-			if (ghost_m == 1) {
-				speed = -2;
-				ghost_m = 0;
-			} else {
-				speed = 2;
-				ghost_m = 1;
+			rigidbody2D.velocity = new Vector2(rigidbody2D.velocity.x, speed);
+			
+			if (TimeCount <= 0) {
+				//画像をx軸のみに対して反転
+				transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+				if (ghost_m == 1) {
+					speed = -2;
+					ghost_m = 0;
+				} else {
+					speed = 2;
+					ghost_m = 1;
+				}
+				TimeCount = 4;
 			}
-			TimeCount = 4;
-		}
-		//gameover
-		if (gameObject.transform.position.y < Camera.main.transform.position.y - 15
-			|| gameObject.transform.position.x < Camera.main.transform.position.x - 30) {
-			Destroy (gameObject);
 		}
 	}
 
@@ -59,13 +55,16 @@ public class Ghost : MonoBehaviour
 	{
 		if (_isRendered) {
 			if (col.tag == "Bullet") {
-				AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
+				// AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
 				Destroy (gameObject);
 				Instantiate (explosion, transform.position, transform.rotation);
 				if (Random.Range (0, 2) == 0) {
 					Instantiate (item, transform.position, transform.rotation);
 				}
 			}
+		}
+		if (col.tag == "AbyssZone") {
+				Destroy (gameObject);
 		}
 	}
 

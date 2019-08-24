@@ -22,35 +22,33 @@ public class Enemy1 : MonoBehaviour
 
     void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
-		lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
+      rigidbody2D = GetComponent<Rigidbody2D>();
+			lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
     }
 
     void Update()
     {
-		if (_isRendered) { // カメラに写っている
-			rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
-		}
-		// 敵を消す範囲
-		if (gameObject.transform.position.y < Camera.main.transform.position.y - 15
-		    || gameObject.transform.position.x < Camera.main.transform.position.x - 30) {
-			Destroy (gameObject);
-		}
+			if (_isRendered) { // カメラに写っている
+				rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
+			}
     }
 
 //爆発処理2
     void OnTriggerEnter2D(Collider2D col)
     {
-		if (_isRendered) {
-			if (col.tag == "Bullet") {
-				AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
-				Destroy (gameObject);
-				Instantiate (explosion, transform.position, transform.rotation);
-				if (Random.Range (0, 2) == 0) {
-					Instantiate (item, transform.position, transform.rotation);
+			if (_isRendered) {
+				if (col.tag == "Bullet") {
+					// AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
+					Destroy (gameObject);
+					Instantiate (explosion, transform.position, transform.rotation);
+					if (Random.Range (0, 2) == 0) {
+						Instantiate (item, transform.position, transform.rotation);
+					}
 				}
 			}
-		}
+			if (col.tag == "AbyssZone") {
+				Destroy (gameObject);
+			}
     }
 
 	//HP

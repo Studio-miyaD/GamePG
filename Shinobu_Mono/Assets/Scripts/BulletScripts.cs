@@ -28,7 +28,7 @@ public class BulletScripts : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
 		if (col.gameObject.tag == "Enemy") {
-			   Destroy(gameObject);
+    Destroy(gameObject);
         }
         string layerName = LayerMask.LayerToName(col.gameObject.layer);
 		if (layerName == "Ground") {
