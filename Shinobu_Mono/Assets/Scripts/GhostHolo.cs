@@ -6,6 +6,9 @@ public class GhostHolo : MonoBehaviour
 {
 	Rigidbody2D rigidbody2D;
 	public int speed = 2;
+	//耐久力
+	[SerializeField]
+	public int endurance;
 	//爆発処理1
 	public GameObject explosion;
 	//HP
@@ -70,10 +73,13 @@ public class GhostHolo : MonoBehaviour
 	{
 		if (_isRendered) {
 			if (col.tag == "Bullet") {
-				Destroy (gameObject);
-				Instantiate (explosion, transform.position, transform.rotation);
-				if (Random.Range (0, 2) == 0) {
-					Instantiate (item, transform.position, transform.rotation);
+				endurance--;
+				if(endurance <= 0) {
+					Destroy (gameObject);
+					Instantiate (explosion, transform.position, transform.rotation);
+					if (Random.Range (0, 2) == 0) {
+						Instantiate (item, transform.position, transform.rotation);
+					}
 				}
 			}
 		}
