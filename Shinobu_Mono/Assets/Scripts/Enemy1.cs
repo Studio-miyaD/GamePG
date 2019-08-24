@@ -6,6 +6,9 @@ public class Enemy1 : MonoBehaviour
 {
     Rigidbody2D rigidbody2D;
     public int speed = -3;
+	//耐久力
+	[SerializeField]
+	public int endurance;
     //爆発処理1
     public GameObject explosion;
 	//HP
@@ -36,8 +39,10 @@ public class Enemy1 : MonoBehaviour
 //爆発処理2
     void OnTriggerEnter2D(Collider2D col)
     {
-			if (_isRendered) {
-				if (col.tag == "Bullet") {
+		if (_isRendered) {
+			if (col.tag == "Bullet") {
+				endurance--;
+				if(endurance <= 0) {
 					// AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
 					Destroy (gameObject);
 					Instantiate (explosion, transform.position, transform.rotation);
