@@ -22,6 +22,8 @@ public class Ghost : MonoBehaviour
 	//Ghost
 	public int ghost_m = 1;
 	float TimeCount = 4;
+	//効果音
+	public AudioClip enemyDestroy;
 
 	void Start()
 	{

@@ -25,6 +25,8 @@ public class GhostHolo : MonoBehaviour
 
 	float attackCount = 1;
 	public GameObject bullet;
+	//効果音
+	public AudioClip enemyDestroy;
 
 	void Start()
 	{
