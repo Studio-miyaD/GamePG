@@ -42,8 +42,15 @@ public class Unitychan : MonoBehaviour
 
 	public bool isChange;
 	//効果音
-	public AudioClip attack;
+	public AudioClip attackSound;
+	public AudioClip jumpSound;
+	public AudioClip changeSound;
+	public AudioClip damageSound;
+	public AudioClip gameoverSound;
+	public AudioClip gameclearSound;
+	public AudioClip mainSound;
 	AudioSource audioSource;
+
 	void Start()
 	{
 		anim = GetComponent<Animator>();
@@ -51,6 +58,7 @@ public class Unitychan : MonoBehaviour
 		//無敵
 		renderer = GetComponent<Renderer> ();
 		audioSource = GetComponent<AudioSource> ();
+
 	}
 	//ジャンプ処理3開始
 	void Update ()
@@ -61,11 +69,13 @@ public class Unitychan : MonoBehaviour
 			if (Input.GetKeyDown ("space")) {
 				if (jumpCount < MAX_JUMP_COUNT) {
 					isJump = true;
+					audioSource.PlayOneShot (jumpSound);
 				}
 			}
 			if (Input.GetKeyDown ("c")) {
 				isChange = !isChange;
 				anim.SetBool ("Change", isChange);
+				audioSource.PlayOneShot (changeSound);
 			}
 		}
 
@@ -85,7 +95,7 @@ public class Unitychan : MonoBehaviour
 			//Bullet2 begin
 			if (Input.GetKeyDown ("left ctrl")) {
 				anim.SetTrigger ("Shot"); 
-				audioSource.PlayOneShot (attack);
+				audioSource.PlayOneShot (attackSound);
 				if (isChange) {
 				Instantiate (bullet2, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
 				}
@@ -96,6 +106,7 @@ public class Unitychan : MonoBehaviour
 		//gameover
 			if (gameOver) {
 				//LifeScriptのGameOverメソッドを実行
+				AudioSource.PlayClipAtPoint (gameoverSound, transform.position);
 				lifeScript.GameOver ();
 			}
 		}
@@ -131,7 +142,7 @@ public class Unitychan : MonoBehaviour
 		} else {
 			//クリアーテキストを表示
 			clearText.enabled = true;
-			
+
 			if (goal) {
 				// プレイヤーの色を透明にする
 				Color color = renderer.material.color;
@@ -162,13 +173,7 @@ public class Unitychan : MonoBehaviour
 			isJump = false;
 		}
 	}
-	//無敵
-	void OnCollisonEnter2D(Collision2D col)
-	{
-		if (col.gameObject.tag == "Enemy") {
-			StartCoroutine ("Damage");
-		}
-	}
+
 	void OnCollisionEnter2D(Collision2D other) {
 		string layerName = LayerMask.LayerToName(other.gameObject.layer);
 		if (layerName == "Wall") {
@@ -178,6 +183,13 @@ public class Unitychan : MonoBehaviour
 		if (layerName == "Ground") {
 			jumpCount = 0;
 			isWall = false;
+		}
+		if (other.gameObject.tag == "Enemy") {
+			audioSource.PlayOneShot (damageSound);
+		}
+		if (other.gameObject.tag == "Enemy") {
+			StartCoroutine ("Damage");
+
 		}
 	}
 
@@ -207,12 +219,16 @@ public class Unitychan : MonoBehaviour
 		if (col.tag == "AbyssZone") {
 			//ゲームオーバー
 			gameOver = true;
+			//audioSource.Stop ();
+			//audioSource.PlayOneShot (gameoverSound);
 		}
 
 		//タグがClearZoneであるTriggerにぶつかったら
 		if (col.tag == "ClearZone") {
 			//ゲームクリアー
 			gameClear = true;
+			//audioSource.Stop ();
+			audioSource.PlayOneShot (gameclearSound);
 		}
 		if (col.tag == "Goal") {
 			goal = true;

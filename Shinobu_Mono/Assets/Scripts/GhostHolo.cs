@@ -17,7 +17,7 @@ public class GhostHolo : MonoBehaviour
 	//カメラに写っているかの判定
 	private bool _isRendered = false;
 	//Ghost
-	public int ghost_m = 1;
+	private int ghost_m = 1;
 	float TimeCount = 4;
 
 	float attackCount = 1;
@@ -37,18 +37,18 @@ public class GhostHolo : MonoBehaviour
 		TimeCount -= Time.deltaTime;
 		if (_isRendered) {
 			rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
-		}
-		if (TimeCount <= 0) {
-			//画像をx軸のみに対して反転
-			transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-			if (ghost_m == 1) {
-				speed = -2;
-				ghost_m = 0;
-			} else {
-				speed = 2;
-				ghost_m = 1;
+			if (TimeCount <= 0) {
+				//画像をx軸のみに対して反転
+				transform.localScale = new Vector3 (transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+				if (ghost_m == 1) {
+					speed = -2;
+					ghost_m = 0;
+				} else {
+					speed = 2;
+					ghost_m = 1;
+				}
+				TimeCount = 4;
 			}
-			TimeCount = 4;
 		}
 		//gameover
 		if (gameObject.transform.position.y < Camera.main.transform.position.y - 8

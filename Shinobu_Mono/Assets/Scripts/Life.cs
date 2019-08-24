@@ -11,7 +11,7 @@ public class Life : MonoBehaviour {
 	public GameObject unityChan;
 	public GameObject explosion;
 	public Text gameOverText;
-	private bool gameOver = false;
+	public bool gameOver = false;
 
 
 	void Start () {
@@ -32,6 +32,7 @@ public class Life : MonoBehaviour {
 		}
 		//ゲームオーバー判定がtrueの時
 		if (gameOver) {
+			
 			//ゲームオーバーの文字を表示
 			gameOverText.enabled = true;
 			//画面をクリックすると
