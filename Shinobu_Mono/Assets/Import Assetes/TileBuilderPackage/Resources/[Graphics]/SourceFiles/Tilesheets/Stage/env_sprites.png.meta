@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: 1228aa4cc955248478e97dd1d8f49b88
-timeCreated: 1566021006
+timeCreated: 1566631380
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -430,6 +430,7 @@ TextureImporter:
     21300846: env_sprites_423
     21300848: env_sprites_424
     21300850: env_sprites_425
+    21300852: env_sprites_426
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -6038,6 +6039,19 @@ TextureImporter:
         height: 16
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: env_sprites_426
+      rect:
+        serializedVersion: 2
+        x: 80
+        y: 296
+        width: 80
+        height: 8
+      alignment: 0
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       tessellationDetail: 0
