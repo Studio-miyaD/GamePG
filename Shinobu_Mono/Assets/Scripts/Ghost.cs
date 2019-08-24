@@ -19,6 +19,8 @@ public class Ghost : MonoBehaviour
 	//Ghost
 	public int ghost_m = 1;
 	float TimeCount = 4;
+	//効果音
+	public AudioClip enemyDestroy;
 
 	void Start()
 	{
@@ -57,6 +59,7 @@ public class Ghost : MonoBehaviour
 	{
 		if (_isRendered) {
 			if (col.tag == "Bullet") {
+				AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
 				Destroy (gameObject);
 				Instantiate (explosion, transform.position, transform.rotation);
 				if (Random.Range (0, 2) == 0) {
