@@ -111,7 +111,7 @@ public class Unitychan : MonoBehaviour
 			if (x != 0) {
 				// 入力方向へ移動
 				rigidbody2D.velocity = new Vector2 (x * speed, rigidbody2D.velocity.y);
-				//localScale.xを-1すると画像が反転する
+				//localScale.xを-1倍すると画像が反転する
 				Vector2 temp = transform.localScale;
 				temp.x = x;
 				transform.localScale = temp;
