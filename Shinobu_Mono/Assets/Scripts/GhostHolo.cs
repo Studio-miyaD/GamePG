@@ -22,6 +22,8 @@ public class GhostHolo : MonoBehaviour
 
 	float attackCount = 1;
 	public GameObject bullet;
+	//効果音
+	public AudioClip enemyDestroy;
 
 	void Start()
 	{
@@ -70,6 +72,7 @@ public class GhostHolo : MonoBehaviour
 	{
 		if (_isRendered) {
 			if (col.tag == "Bullet") {
+				AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
 				Destroy (gameObject);
 				Instantiate (explosion, transform.position, transform.rotation);
 				if (Random.Range (0, 2) == 0) {
