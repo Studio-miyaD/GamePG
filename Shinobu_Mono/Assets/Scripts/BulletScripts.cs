@@ -10,7 +10,7 @@ public class BulletScripts : MonoBehaviour
     void Start()
     {
         //ユニティちゃんオブジェクトを取得
-        player = GameObject.FindWithTag("UnityChan");
+		player = GameObject.FindWithTag("UnityChan");
         //rigidbody2Dコンポーネントを取得
         Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
         //ユニティちゃんの向いている向きに弾を飛ばす
@@ -27,8 +27,8 @@ public class BulletScripts : MonoBehaviour
     //追加
     void OnTriggerEnter2D(Collider2D col)
     {
-        if (col.gameObject.tag == "Enemy") {
-            Destroy(gameObject);
+		if (col.gameObject.tag == "Enemy") {
+			   Destroy(gameObject);
         }
         string layerName = LayerMask.LayerToName(col.gameObject.layer);
 		if (layerName == "Ground") {
