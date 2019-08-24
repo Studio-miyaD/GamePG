@@ -36,11 +36,7 @@ public class PlayerTriggerObject : MonoBehaviour
 	{
 		if (collision.tag == playerTag)
 		{
-			//プレイヤーの下から４分の１が範囲内にいる時乗っているとみなします
-			if(collision.transform.position.y - (collision.bounds.size.y / 4.0f) > transform.position.y)
-			{
-				isOn = true;
-			}
+			isOn = true;
 		}
 	}
 }

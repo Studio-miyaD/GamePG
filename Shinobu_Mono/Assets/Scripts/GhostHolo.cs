@@ -20,6 +20,9 @@ public class GhostHolo : MonoBehaviour
 	public int ghost_m = 1;
 	float TimeCount = 4;
 
+	float attackCount = 1;
+	public GameObject bullet;
+
 	void Start()
 	{
 		rigidbody2D = GetComponent<Rigidbody2D>();
@@ -49,6 +52,16 @@ public class GhostHolo : MonoBehaviour
 		if (gameObject.transform.position.y < Camera.main.transform.position.y - 8
 			|| gameObject.transform.position.x < Camera.main.transform.position.x - 10) {
 			Destroy (gameObject);
+		}
+		//attack
+		attackCount -= Time.deltaTime;
+		if (attackCount <= 0) {
+			if (ghost_m == 1) {
+				Instantiate (bullet, transform.position + new Vector3 (1.2f, 0f, 0f), transform.rotation);
+			} else {
+				Instantiate (bullet, transform.position + new Vector3 (-1.2f, 0f, 0f), transform.rotation);
+			}
+			attackCount = 1;
 		}
 	}
 
