@@ -4,8 +4,9 @@ using UnityEngine;
 
 public class Enemy1 : MonoBehaviour
 {
-    Rigidbody2D rigidbody2D;
-    public int speed = -3;
+  Rigidbody2D rigidbody2D;
+  public int speed = -3;
+	[Header("耐久力")] public int endurance = 4;
     //爆発処理1
     public GameObject explosion;
 	//HP
@@ -22,20 +23,15 @@ public class Enemy1 : MonoBehaviour
 
     void Start()
     {
-        rigidbody2D = GetComponent<Rigidbody2D>();
-		lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
+      rigidbody2D = GetComponent<Rigidbody2D>();
+			lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
     }
 
     void Update()
     {
-		if (_isRendered) { // カメラに写っている
-			rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
-		}
-		// 敵を消す範囲
-		if (gameObject.transform.position.y < Camera.main.transform.position.y - 15
-		    || gameObject.transform.position.x < Camera.main.transform.position.x - 30) {
-			Destroy (gameObject);
-		}
+			if (_isRendered) { // カメラに写っている
+				rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
+			}
     }
 
 //爆発処理2
@@ -43,31 +39,38 @@ public class Enemy1 : MonoBehaviour
     {
 		if (_isRendered) {
 			if (col.tag == "Bullet") {
-				AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
-				Destroy (gameObject);
-				Instantiate (explosion, transform.position, transform.rotation);
-				if (Random.Range (0, 2) == 0) {
-					Instantiate (item, transform.position, transform.rotation);
+				endurance--;
+				if(endurance <= 0) {
+					// AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
+					Destroy (gameObject);
+					Instantiate (explosion, transform.position, transform.rotation);
+					if (Random.Range (0, 2) == 0) {
+						Instantiate (item, transform.position, transform.rotation);
+					}
 				}
 			}
-		}
+			if (col.tag == "AbyssZone") {
+				Destroy (gameObject);
+			}
     }
+  }
 
-	//HP
-	void OnCollisionEnter2D (Collision2D col)
-	{
-		//unitychanとぶつかった時
-		if (col.gameObject.tag == "UnityChan") {
-			//LifeScriptのLifeDownメソッドを実行
-			lifeScript.LifeDown(attackPoint);
-		}
-	}
+  void OnCollisionEnter2D(Collision2D col)
+  {
+    //unitychanとぶつかった時
+    if (col.gameObject.tag == "UnityChan")
+    {
+      //LifeScriptのLifeDownメソッドを実行
+      lifeScript.LifeDown(attackPoint);
+    }
+  }
 
-	//待機
-	void OnWillRenderObject() {
-		//メインカメラに映った時だけ_isRenderedをtrue
-		if (Camera.current.tag == MAIN_CAMERA_TAG_NAME) {
-			_isRendered = true;
-		}
-	}
+  void OnWillRenderObject()
+  {
+    //メインカメラに映った時だけ_isRenderedをtrue
+    if (Camera.current.tag == MAIN_CAMERA_TAG_NAME)
+    {
+      _isRendered = true;
+    }
+  }
 }

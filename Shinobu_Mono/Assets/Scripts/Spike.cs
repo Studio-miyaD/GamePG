@@ -28,6 +28,7 @@ public class Spike : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D col) {
 		if (col.gameObject.tag == "UnityChan") {
 			isCount = true;
+			lifeScript.LifeDown(attackPoint);
 		}
 	}
 
