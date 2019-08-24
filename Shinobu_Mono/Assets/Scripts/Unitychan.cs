@@ -28,7 +28,6 @@ public class Unitychan : MonoBehaviour
 	public const int MAX_JUMP_COUNT = 2;
 	private int jumpCount = 0;
 	// ジャンプ処理2終了
-	private bool isWall = false;
 	//無敵
 	private Renderer renderer;
 	//gameclear
@@ -113,9 +112,7 @@ public class Unitychan : MonoBehaviour
 				temp.x = x;
 				transform.localScale = temp;
 				//wait→dash
-				if (!isWall) {
-					anim.SetBool ("Dash", true);
-				}
+				anim.SetBool ("Dash", true);
 
 				//左も右も入力していなかったら
 			} else {
@@ -167,13 +164,8 @@ public class Unitychan : MonoBehaviour
 	}
 	void OnCollisionEnter2D(Collision2D other) {
 		string layerName = LayerMask.LayerToName(other.gameObject.layer);
-		if (layerName == "Wall") {
-			jumpCount = 0;
-			isWall = true;
-  }
 		if (layerName == "Ground") {
 			jumpCount = 0;
-			isWall = false;
 		}
 	}
 
