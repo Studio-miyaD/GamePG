@@ -39,15 +39,18 @@ public class Unitychan : MonoBehaviour
 
 	private bool goal = false; // 建物に入ったらステージを遷移させる
 	public Text clearText; //ゲームクリアー時に表示するテキスト
-	// Start is called before the first frame update
 
 	public bool isChange;
+	//効果音
+	public AudioClip attack;
+	AudioSource audioSource;
 	void Start()
 	{
 		anim = GetComponent<Animator>();
 		rigidbody2D = GetComponent<Rigidbody2D>();
 		//無敵
 		renderer = GetComponent<Renderer> ();
+		audioSource = GetComponent<AudioSource> ();
 	}
 	//ジャンプ処理3開始
 	void Update ()
@@ -82,6 +85,7 @@ public class Unitychan : MonoBehaviour
 			//Bullet2 begin
 			if (Input.GetKeyDown ("left ctrl")) {
 				anim.SetTrigger ("Shot"); 
+				audioSource.PlayOneShot (attack);
 				if (isChange) {
 				Instantiate (bullet2, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
 				}
