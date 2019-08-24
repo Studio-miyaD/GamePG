@@ -6,9 +6,7 @@ public class Ghost : MonoBehaviour
 {
 	Rigidbody2D rigidbody2D;
 	public int speed = 2;
-	//耐久力
-	[SerializeField]
-	public int endurance;
+[Header("耐久力")] public int endurance;
 	//爆発処理1
 	public GameObject explosion;
 	//HP

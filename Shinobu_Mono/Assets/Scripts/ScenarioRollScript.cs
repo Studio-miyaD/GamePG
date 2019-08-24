@@ -28,6 +28,7 @@ public class ScenarioRollScript : MonoBehaviour
             if (transform.position.y <= limitPosition) {
                 transform.position = new Vector2(transform.position.x, transform.position.y + textScrollSpeed * Time.deltaTime);
             } else {
+                Debug.Log("OK");
                 isStopEndRoll = true;
             }
         }
@@ -36,7 +37,7 @@ public class ScenarioRollScript : MonoBehaviour
     IEnumerator GoToNextScene() {
         if(Input.GetKeyDown("space")) {
             StopCoroutine(endRollCoroutine);
-            SceneManager.LoadScene("Main");
+            SceneManager.LoadScene("MainStage");
         }
  
         yield return null;

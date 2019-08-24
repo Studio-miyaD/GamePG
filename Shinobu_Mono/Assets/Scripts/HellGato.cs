@@ -6,9 +6,7 @@ public class HellGato : MonoBehaviour
 {
 	Rigidbody2D rigidbody2D;
 	public int speed = -5;
-	//耐久力
-	[SerializeField]
-	public int endurance;
+	[Header("耐久力")] public int endurance = 5;
 	//爆発処理1
 	public GameObject explosion;
 	//HP
