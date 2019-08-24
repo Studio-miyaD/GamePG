@@ -16,6 +16,9 @@ public class GhostAttack : MonoBehaviour {
 		ghostHolo = GameObject.FindWithTag("Enemy");
 		//int ran = Random.Range (-1, 2);
 		rigidbody2D.velocity = new Vector2(speed * ghostHolo.transform.localScale.x, rigidbody2D.velocity.y);
+		Vector2 temp = transform.localScale;
+        temp.x = ghostHolo.transform.localScale.x;
+        transform.localScale = temp;
 		Destroy(gameObject, 10);
 		
 	}
