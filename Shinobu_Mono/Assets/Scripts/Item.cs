@@ -8,14 +8,14 @@ public class Item : MonoBehaviour {
 	private Life lifeScript;
 	//効果音
 	public AudioClip healSound;
-	//AudioSource audioSource;
+	AudioSource audioSource;
 
 
 	void Start () {
 		lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
 
-		//audioSource = GetComponent<AudioSource> ();
-		//audioSource.clip = healSound;
+		audioSource = GetComponent<AudioSource> ();
+		audioSource.clip = healSound;
 	}
 
 	void OnCollisionEnter2D (Collision2D col)

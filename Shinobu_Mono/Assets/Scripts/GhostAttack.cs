@@ -7,16 +7,28 @@ public class GhostAttack : MonoBehaviour {
 	private int speed = 3;
 	public int attackPoint = 10;
 	private Life lifeScript;
+	private int direction;
+	private bool direction_ = false;
+	public GameObject enemy;
+	public GameObject player;
 
 	// Use this for initialization
 	void Start () {
-		Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
+		player = GameObject.FindWithTag("UnityChan");
 		lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
-		rigidbody2D.velocity = new Vector2(0f, speed * rigidbody2D.velocity.y);
 		Destroy(gameObject, 4);
 	}
-
+	void Update() {
+		Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
+		rigidbody2D.velocity = new Vector2(speed * direction, player.transform.position.y - enemy.transform.position.y);
+	}
 	void OnCollisionEnter2D(Collision2D col) {
+		if(col.gameObject.tag == "Enemy" && direction_ == false) {
+			enemy = col.gameObject;
+			direction = enemy.GetComponent<GhostHolo>().ghost_m;
+			Debug.Log(direction);
+			direction_ = true;
+		}
 		if (col.gameObject.tag == "UnityChan") {
 			lifeScript.LifeDown (attackPoint);
 			Destroy (gameObject);
