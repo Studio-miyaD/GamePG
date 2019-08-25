@@ -38,6 +38,7 @@ public class GhostHolo : MonoBehaviour
 	void Update()
 	{
 		//ghost
+		if (player == null) { return; }
 		if (_isRendered) {
 			TimeCount -= Time.deltaTime;
 			rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, speed);
@@ -65,7 +66,6 @@ public class GhostHolo : MonoBehaviour
 			}
 			//attack
 			attackCount -= Time.deltaTime;
-			Debug.Log(ghost_m);
 			if (attackCount <= 0) {
 				if (ghost_m == 0) {
 					Instantiate (bullet, transform.position + new Vector3 (0.6f * ghost_m, 0f, 0f), transform.rotation);
