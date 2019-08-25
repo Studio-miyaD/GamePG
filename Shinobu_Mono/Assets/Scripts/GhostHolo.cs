@@ -18,7 +18,7 @@ public class GhostHolo : MonoBehaviour
 	//カメラに写っているかの判定
 	private bool _isRendered = false;
 	//Ghost
-	private int ghost_m = 1;
+	public int ghost_m = 1;
 	float TimeCount = 4;
 
 	float attackCount = 1;
