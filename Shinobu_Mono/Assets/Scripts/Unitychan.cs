@@ -17,7 +17,6 @@ public class Unitychan : MonoBehaviour
 	//Bullet1 fin
 	//gameover
 	public Life lifeScript;
-
 	private Rigidbody2D rigidbody2D;
 	private BoxCollider2D boxCollider2D;
 	private CircleCollider2D circleCollider2D;
