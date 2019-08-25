@@ -37,5 +37,4 @@ public class Spike : MonoBehaviour {
 			isCount = false;
 		}
 	}
- 
 }
