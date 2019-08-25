@@ -18,7 +18,7 @@ public class GhostHolo : MonoBehaviour
 	//カメラに写っているかの判定
 	private bool _isRendered = false;
 	//Ghost
-	[Header("敵の行動のインターバル")]public int ghost_m = 1;
+	public int ghost_m = 1;
 	float TimeCount = 4;
 
 	float attackCount = 1;
@@ -26,8 +26,11 @@ public class GhostHolo : MonoBehaviour
 	//効果音
 	public AudioClip enemyDestroy;
 
+	public GameObject player;
+
 	void Start()
 	{
+		player = GameObject.FindWithTag("UnityChan");
 		rigidbody2D = GetComponent<Rigidbody2D>();
 		lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
 	}
@@ -38,26 +41,36 @@ public class GhostHolo : MonoBehaviour
 		if (_isRendered) {
 			TimeCount -= Time.deltaTime;
 			rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, speed);
-
-			if (TimeCount <= 0) {
+			if(player.transform.position.x < gameObject.transform.position.x) {
+				ghost_m = -1;
 				//画像をx軸のみに対して反転
-				transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
-				if (ghost_m == 1) {
+				transform.localScale = new Vector3(6, transform.localScale.y, transform.localScale.z);
+			} else {
+				ghost_m = 1;
+				//画像をx軸のみに対して反転
+				transform.localScale = new Vector3(-6, transform.localScale.y, transform.localScale.z);
+			}
+			
+			// 数秒間に一度の間隔で変化
+			
+			if (TimeCount <= 0) {
+				if (speed == 2) {
 					speed = -2;
-					ghost_m = 0;
+					//ghost_m = -1;
 				} else {
 					speed = 2;
-					ghost_m = 1;
+					//ghost_m = 1;
 				}
 				TimeCount = 4;
 			}
 			//attack
 			attackCount -= Time.deltaTime;
+			Debug.Log(ghost_m);
 			if (attackCount <= 0) {
 				if (ghost_m == 0) {
-					Instantiate (bullet, transform.position + new Vector3 (1.2f, 0f, 0f), transform.rotation);
+					Instantiate (bullet, transform.position + new Vector3 (0.6f * ghost_m, 0f, 0f), transform.rotation);
 				} else {
-					Instantiate (bullet, transform.position + new Vector3 (-1.2f, 0f, 0f), transform.rotation);
+					Instantiate (bullet, transform.position + new Vector3 (0.6f * ghost_m, 0f, 0f), transform.rotation);
 				}
 				attackCount = 1;
 			}

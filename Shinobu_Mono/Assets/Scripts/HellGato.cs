@@ -17,6 +17,8 @@ public class HellGato : MonoBehaviour
 	private const string MAIN_CAMERA_TAG_NAME = "MainCamera";
 	//カメラに写っているかの判定
 	private bool _isRendered = false;
+	//効果音
+	public AudioClip enemyDestroy;
 
 	void Start()
 	{
