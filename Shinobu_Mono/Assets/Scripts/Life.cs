@@ -13,9 +13,13 @@ public class Life : MonoBehaviour {
 	public Text gameOverText;
 	public bool gameOver = false;
 
+	public AudioClip gameoverSound;
+	AudioSource audioSource;
+
 
 	void Start () {
 		rt = GetComponent<RectTransform> ();
+		audioSource = GetComponent<AudioSource> ();
 	}
 
 	//gameover
@@ -23,6 +27,7 @@ public class Life : MonoBehaviour {
 	{
 		//HPが0以下になった時
 		if (rt.sizeDelta.y <= 0) {
+			AudioSource.PlayClipAtPoint (gameoverSound, transform.position);
 			//ゲームオーバー判定がfalseなら爆発アニメーションを生成
 			//GameOverメソッドでtrueになるので、1回のみ実行
 			if (gameOver == false) {
