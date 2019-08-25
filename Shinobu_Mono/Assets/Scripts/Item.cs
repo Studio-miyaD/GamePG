@@ -28,5 +28,8 @@ public class Item : MonoBehaviour {
 			//アイテムを削除する
 			Destroy(gameObject);
 		}
+		if (col.gameObject.tag == "AbyssZone") {
+			Destroy(gameObject);
+		}
 	}
 }
