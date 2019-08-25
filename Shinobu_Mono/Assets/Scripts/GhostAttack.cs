@@ -19,6 +19,7 @@ public class GhostAttack : MonoBehaviour {
 		Destroy(gameObject, 4);
 	}
 	void Update() {
+		if (player == null || enemy == null) { return; }
 		Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
 		rigidbody2D.velocity = new Vector2(speed * direction, player.transform.position.y - enemy.transform.position.y);
 	}
@@ -26,7 +27,6 @@ public class GhostAttack : MonoBehaviour {
 		if(col.gameObject.tag == "Enemy" && direction_ == false) {
 			enemy = col.gameObject;
 			direction = enemy.GetComponent<GhostHolo>().ghost_m;
-			Debug.Log(direction);
 			direction_ = true;
 		}
 		if (col.gameObject.tag == "UnityChan") {
