@@ -35,7 +35,7 @@ public class Unitychan : MonoBehaviour
 
 	// gameover
 	private bool gameOver = false; // ゲームオーバーになったらタイトルに戻る
-
+	 
 	private bool goal = false; // 建物に入ったらステージを遷移させる
 	public Text clearText; //ゲームクリアー時に表示するテキスト
 
@@ -176,12 +176,9 @@ public class Unitychan : MonoBehaviour
 		if (layerName == "Ground") {
 			jumpCount = 0;
 		}
-		if (other.gameObject.tag == "Enemy") {
+		if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "DamageTrap") {
 			audioSource.PlayOneShot (damageSound);
-		}
-		if (other.gameObject.tag == "Enemy") {
 			StartCoroutine ("Damage");
-
 		}
 	}
 
@@ -211,15 +208,13 @@ public class Unitychan : MonoBehaviour
 		if (col.tag == "AbyssZone") {
 			//ゲームオーバー
 			gameOver = true;
-			//audioSource.Stop ();
-			//audioSource.PlayOneShot (gameoverSound);
+			audioSource.PlayOneShot (gameoverSound);
 		}
 
 		//タグがClearZoneであるTriggerにぶつかったら
 		if (col.tag == "ClearZone") {
 			//ゲームクリアー
 			gameClear = true;
-			//audioSource.Stop ();
 			audioSource.PlayOneShot (gameclearSound);
 		}
 		if (col.tag == "Goal") {

@@ -24,7 +24,7 @@ public class Enemy1 : MonoBehaviour
     void Start()
     {
       rigidbody2D = GetComponent<Rigidbody2D>();
-			lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
+	  lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
     }
 
     void Update()
@@ -41,7 +41,7 @@ public class Enemy1 : MonoBehaviour
 			if (col.tag == "Bullet") {
 				endurance--;
 				if(endurance <= 0) {
-					// AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
+					AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
 					Destroy (gameObject);
 					Instantiate (explosion, transform.position, transform.rotation);
 					if (Random.Range (0, 2) == 0) {
