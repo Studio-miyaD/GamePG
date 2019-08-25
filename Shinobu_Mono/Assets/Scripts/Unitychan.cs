@@ -68,13 +68,13 @@ public class Unitychan : MonoBehaviour
 			if (Input.GetKeyDown ("space")) {
 				if (jumpCount < MAX_JUMP_COUNT) {
 					isJump = true;
-					//audioSource.PlayOneShot (jumpSound);
+					audioSource.PlayOneShot (jumpSound);
 				}
 			}
 			if (Input.GetKeyDown ("c")) {
 				isChange = !isChange;
 				anim.SetBool ("Change", isChange);
-				//audioSource.PlayOneShot (changeSound);
+				audioSource.PlayOneShot (changeSound);
 			}
 		}
 
@@ -94,7 +94,7 @@ public class Unitychan : MonoBehaviour
 			//Bullet2 begin
 			if (Input.GetKeyDown ("left ctrl")) {
 				anim.SetTrigger ("Shot"); 
-				//audioSource.PlayOneShot (attackSound);
+				audioSource.PlayOneShot (attackSound);
 				if (isChange) {
 				Instantiate (bullet2, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
 				}
@@ -105,7 +105,7 @@ public class Unitychan : MonoBehaviour
 		//gameover
 			if (gameOver) {
 				//LifeScriptのGameOverメソッドを実行
-				//AudioSource.PlayClipAtPoint (gameoverSound, transform.position);
+				AudioSource.PlayClipAtPoint (gameoverSound, transform.position);
 				lifeScript.GameOver ();
 			}
 		}
