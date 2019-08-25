@@ -36,7 +36,7 @@ public class Life : MonoBehaviour {
 			//ゲームオーバーの文字を表示
 			gameOverText.enabled = true;
 			//画面をクリックすると
-			if (Input.GetMouseButtonDown (0)) {
+			if (Input.GetMouseButtonDown (0) || Input.GetKeyDown ("space")) {
 				//タイトルへ戻る
 				SceneManager.LoadScene("Title");
 			}

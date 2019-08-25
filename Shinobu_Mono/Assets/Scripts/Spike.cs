@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Spike : MonoBehaviour {
-	public float attackPoint = 0.0001f;
+	public float attackPoint = 10f;
 	// Use this for initialization
 	private Life lifeScript;
 	public float timeCount = 0;
@@ -28,6 +28,7 @@ public class Spike : MonoBehaviour {
 	void OnCollisionEnter2D(Collision2D col) {
 		if (col.gameObject.tag == "UnityChan") {
 			isCount = true;
+			lifeScript.LifeDown(attackPoint);
 		}
 	}
 

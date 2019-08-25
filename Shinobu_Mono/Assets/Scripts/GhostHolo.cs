@@ -6,6 +6,7 @@ public class GhostHolo : MonoBehaviour
 {
 	Rigidbody2D rigidbody2D;
 	public int speed = 2;
+	[Header("耐久力")] public int endurance = 15;
 	//爆発処理1
 	public GameObject explosion;
 	//HP
@@ -34,12 +35,13 @@ public class GhostHolo : MonoBehaviour
 	void Update()
 	{
 		//ghost
-		TimeCount -= Time.deltaTime;
 		if (_isRendered) {
-			rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
+			TimeCount -= Time.deltaTime;
+			rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, speed);
+
 			if (TimeCount <= 0) {
 				//画像をx軸のみに対して反転
-				transform.localScale = new Vector3 (transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
+				transform.localScale = new Vector3(transform.localScale.x * -1, transform.localScale.y, transform.localScale.z);
 				if (ghost_m == 1) {
 					speed = -2;
 					ghost_m = 0;
@@ -49,21 +51,16 @@ public class GhostHolo : MonoBehaviour
 				}
 				TimeCount = 4;
 			}
-		}
-		//gameover
-		if (gameObject.transform.position.y < Camera.main.transform.position.y - 8
-			|| gameObject.transform.position.x < Camera.main.transform.position.x - 10) {
-			Destroy (gameObject);
-		}
-		//attack
-		attackCount -= Time.deltaTime;
-		if (attackCount <= 0) {
-			if (ghost_m == 1) {
-				Instantiate (bullet, transform.position + new Vector3 (1.2f, 0f, 0f), transform.rotation);
-			} else {
-				Instantiate (bullet, transform.position + new Vector3 (-1.2f, 0f, 0f), transform.rotation);
+			//attack
+			attackCount -= Time.deltaTime;
+			if (attackCount <= 0) {
+				if (ghost_m == 0) {
+					Instantiate (bullet, transform.position + new Vector3 (1.2f, 0f, 0f), transform.rotation);
+				} else {
+					Instantiate (bullet, transform.position + new Vector3 (-1.2f, 0f, 0f), transform.rotation);
+				}
+				attackCount = 1;
 			}
-			attackCount = 1;
 		}
 	}
 
@@ -72,13 +69,19 @@ public class GhostHolo : MonoBehaviour
 	{
 		if (_isRendered) {
 			if (col.tag == "Bullet") {
-				AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
-				Destroy (gameObject);
-				Instantiate (explosion, transform.position, transform.rotation);
-				if (Random.Range (0, 2) == 0) {
-					Instantiate (item, transform.position, transform.rotation);
+				endurance--;
+				if(endurance <= 0) {
+				// AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
+					Destroy (gameObject);
+					Instantiate (explosion, transform.position, transform.rotation);
+					if (Random.Range (0, 2) == 0) {
+						Instantiate (item, transform.position, transform.rotation);
+					}
 				}
 			}
+		}
+		if (col.tag == "AbyssZone") {
+				Destroy (gameObject);
 		}
 	}
 
