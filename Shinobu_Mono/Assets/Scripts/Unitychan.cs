@@ -34,7 +34,6 @@ public class Unitychan : MonoBehaviour
 
 	// gameover
 	private bool gameOver = false; // ゲームオーバーになったらタイトルに戻る
-	 
 	private bool goal = false; // 建物に入ったらステージを遷移させる
 	public Text clearText; //ゲームクリアー時に表示するテキスト
 
@@ -56,7 +55,6 @@ public class Unitychan : MonoBehaviour
 		//無敵
 		renderer = GetComponent<Renderer> ();
 		audioSource = GetComponent<AudioSource> ();
-
 	}
 	//ジャンプ処理3開始
 	void Update ()
