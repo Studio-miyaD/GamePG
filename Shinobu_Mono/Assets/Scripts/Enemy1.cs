@@ -25,7 +25,7 @@ public class Enemy1 : MonoBehaviour
     void Start()
     {
       rigidbody2D = GetComponent<Rigidbody2D>();
-	  lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
+	    lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
     }
 
     void Update()
@@ -39,8 +39,8 @@ public class Enemy1 : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
 		if (_isRendered) {
-			if (col.tag == "Bullet" || col.tag == "Shuriken" || col.tag == "Kunai") {
-				if (col.tag == "Bullet") {
+			if (col.tag == "Fireboll" || col.tag == "Shuriken" || col.tag == "Kunai") {
+        if (col.tag == "Fireboll") {
           endurance -= 4;
         } else if (col.tag == "Shuriken") {
           endurance --;

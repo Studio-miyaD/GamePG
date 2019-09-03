@@ -11,9 +11,10 @@ public class Unitychan : MonoBehaviour
 	public float jumpPower = 700; // ジャンプ力
 	public LayerMask groundLayer; //Linecastで判定するLayer
 	//ジャンプ処理1終了
-	//Bullet1
-	public GameObject bullet;
-	public GameObject bullet2;
+	//Bullet
+	public GameObject shuriken;
+	public GameObject kunai;
+	public GameObject fireboll;
 	//Bullet1 fin
 	//gameover
 	public Life lifeScript;
@@ -37,7 +38,8 @@ public class Unitychan : MonoBehaviour
 	private bool goal = false; // 建物に入ったらステージを遷移させる
 	public Text clearText; //ゲームクリアー時に表示するテキスト
 
-	public bool isChange;
+	public bool isChange; // 2P であるかの判定
+	public bool isFire = false; // 
 	//効果音
 	public AudioClip attackSound;
 	public AudioClip jumpSound;
@@ -92,11 +94,13 @@ public class Unitychan : MonoBehaviour
 			if (Input.GetKeyDown ("left ctrl")) {
 				anim.SetTrigger ("Shot"); 
 				audioSource.PlayOneShot (attackSound);
-				if (isChange) {
-				Instantiate (bullet2, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
+				if (isFire) {
+					Instantiate (fireboll, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
 				}
-				if (!isChange) {
-				Instantiate (bullet, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
+				else if (isChange) {
+				Instantiate (kunai, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
+				} else {
+				Instantiate (shuriken, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
 				}
 			}
 		//gameover
@@ -223,5 +227,13 @@ public class Unitychan : MonoBehaviour
 	{
 		//タイトル画面へ
 		SceneManager.LoadScene("Title");
+	}
+
+	public void setFire() {
+		if (isFire) {
+			isFire = false;
+		} else {
+			isFire = true;
+		}
 	}
 }

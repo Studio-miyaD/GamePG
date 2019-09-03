@@ -43,13 +43,13 @@ public class GhostHolo : MonoBehaviour
 			TimeCount -= Time.deltaTime;
 			rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, speed);
 			if(player.transform.position.x < gameObject.transform.position.x) {
-				ghost_m = 1;
-				//画像をx軸のみに対して反転
-				transform.localScale = new Vector3(6, transform.localScale.y, transform.localScale.z);
-			} else {
 				ghost_m = -1;
 				//画像をx軸のみに対して反転
 				transform.localScale = new Vector3(-6, transform.localScale.y, transform.localScale.z);
+			} else {
+				ghost_m = 1;
+				//画像をx軸のみに対して反転
+				transform.localScale = new Vector3(6, transform.localScale.y, transform.localScale.z);
 			}
 			
 			// 数秒間に一度の間隔で変化
@@ -81,7 +81,7 @@ public class GhostHolo : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if (_isRendered) {
-			if (col.tag == "Bullet" || col.tag == "Shuriken" || col.tag == "Kunai") {
+			if (col.tag == "Fireboll" || col.tag == "Shuriken" || col.tag == "Kunai") {
 				if (col.tag == "Bullet") {
           endurance -= 4;
         } else if (col.tag == "Shuriken") {
@@ -90,7 +90,7 @@ public class GhostHolo : MonoBehaviour
           endurance -= 2;
         }
 				if(endurance <= 0) {
-				    AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
+					AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
 					Destroy (gameObject);
 					Instantiate (explosion, transform.position, transform.rotation);
 					if (Random.Range (0, 2) == 0) {
