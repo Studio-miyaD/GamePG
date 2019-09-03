@@ -6,7 +6,7 @@ public class HellGato : MonoBehaviour
 {
 	Rigidbody2D rigidbody2D;
 	public int speed = -5;
-	[Header("耐久力")] public int endurance = 5;
+	[Header("耐久力")] public int endurance = 10;
 	//爆発処理1
 	public GameObject explosion;
 	//HP
@@ -37,10 +37,16 @@ public class HellGato : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if (_isRendered) {
-			if (col.tag == "Bullet") {
-				endurance--;
+			if (col.tag == "Fireboll" || col.tag == "Shuriken" || col.tag == "Kunai") {
+				if (col.tag == "Fireboll") {
+          endurance -= 4;
+        } else if (col.tag == "Shuriken") {
+          endurance --;
+        } else {
+          endurance -= 2;
+        }
 				if(endurance <= 0) {
-				    AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
+					AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
 					Destroy (gameObject);
 					Instantiate (explosion, transform.position, transform.rotation);
 					if (Random.Range (0, 2) == 0) {
