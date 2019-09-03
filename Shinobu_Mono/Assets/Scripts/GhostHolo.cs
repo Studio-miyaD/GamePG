@@ -6,7 +6,7 @@ public class GhostHolo : MonoBehaviour
 {
 	Rigidbody2D rigidbody2D;
 	public int speed = 2;
-	[Header("耐久力")] public int endurance = 15;
+	[Header("耐久力")] public int endurance = 10;
 	//爆発処理1
 	public GameObject explosion;
 	//HP
@@ -81,8 +81,14 @@ public class GhostHolo : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if (_isRendered) {
-			if (col.tag == "Bullet") {
-				endurance--;
+			if (col.tag == "Bullet" || col.tag == "Shuriken" || col.tag == "Kunai") {
+				if (col.tag == "Bullet") {
+          endurance -= 4;
+        } else if (col.tag == "Shuriken") {
+          endurance --;
+        } else {
+          endurance -= 2;
+        }
 				if(endurance <= 0) {
 				    AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
 					Destroy (gameObject);
