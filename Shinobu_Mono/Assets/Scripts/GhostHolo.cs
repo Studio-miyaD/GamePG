@@ -6,7 +6,7 @@ public class GhostHolo : MonoBehaviour
 {
 	Rigidbody2D rigidbody2D;
 	public int speed = 2;
-	[Header("耐久力")] public int endurance = 15;
+	[Header("耐久力")] public int endurance = 10;
 	//爆発処理1
 	public GameObject explosion;
 	//HP
@@ -21,7 +21,7 @@ public class GhostHolo : MonoBehaviour
 	public int ghost_m = 1;
 	float TimeCount = 4;
 
-	float attackCount = 1;
+	float attackCount = 2;
 	public GameObject bullet;
 	//効果音
 	public AudioClip enemyDestroy;
@@ -43,13 +43,13 @@ public class GhostHolo : MonoBehaviour
 			TimeCount -= Time.deltaTime;
 			rigidbody2D.velocity = new Vector2 (rigidbody2D.velocity.x, speed);
 			if(player.transform.position.x < gameObject.transform.position.x) {
-				ghost_m = 1;
-				//画像をx軸のみに対して反転
-				transform.localScale = new Vector3(6, transform.localScale.y, transform.localScale.z);
-			} else {
 				ghost_m = -1;
 				//画像をx軸のみに対して反転
 				transform.localScale = new Vector3(-6, transform.localScale.y, transform.localScale.z);
+			} else {
+				ghost_m = 1;
+				//画像をx軸のみに対して反転
+				transform.localScale = new Vector3(6, transform.localScale.y, transform.localScale.z);
 			}
 			
 			// 数秒間に一度の間隔で変化
@@ -81,10 +81,16 @@ public class GhostHolo : MonoBehaviour
 	void OnTriggerEnter2D(Collider2D col)
 	{
 		if (_isRendered) {
-			if (col.tag == "Bullet") {
-				endurance--;
+			if (col.tag == "Fireboll" || col.tag == "Shuriken" || col.tag == "Kunai") {
+				if (col.tag == "Fireboll") {
+          endurance -= 4;
+        } else if (col.tag == "Shuriken") {
+          endurance --;
+        } else {
+          endurance -= 2;
+        }
 				if(endurance <= 0) {
-				    AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
+					AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
 					Destroy (gameObject);
 					Instantiate (explosion, transform.position, transform.rotation);
 					if (Random.Range (0, 2) == 0) {

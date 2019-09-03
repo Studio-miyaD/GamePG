@@ -6,7 +6,8 @@ public class Enemy1 : MonoBehaviour
 {
   Rigidbody2D rigidbody2D;
   public int speed = -3;
-	[Header("耐久力")] public int endurance = 4;
+	[Header("耐久力")] public int endurance = 8;
+  public bool isDamageCut = false;
     //爆発処理1
     public GameObject explosion;
 	//HP
@@ -24,7 +25,7 @@ public class Enemy1 : MonoBehaviour
     void Start()
     {
       rigidbody2D = GetComponent<Rigidbody2D>();
-	  lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
+	    lifeScript = GameObject.FindGameObjectWithTag ("HP").GetComponent<Life> ();
     }
 
     void Update()
@@ -38,9 +39,15 @@ public class Enemy1 : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
 		if (_isRendered) {
-			if (col.tag == "Bullet") {
-				endurance--;
-				if(endurance <= 0) {
+			if (col.tag == "Fireboll" || col.tag == "Shuriken" || col.tag == "Kunai") {
+        if (col.tag == "Fireboll") {
+          endurance -= 4;
+        } else if (col.tag == "Shuriken") {
+          endurance --;
+        } else {
+          endurance -= 2;
+        }
+        if(endurance <= 0) {
 					AudioSource.PlayClipAtPoint (enemyDestroy, transform.position);
 					Destroy (gameObject);
 					Instantiate (explosion, transform.position, transform.rotation);
