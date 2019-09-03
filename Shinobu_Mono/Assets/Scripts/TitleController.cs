@@ -9,7 +9,7 @@ public class TitleController : MonoBehaviour {
 		SceneManager.LoadScene ("Outline");
 	}
 
-    public void OnLicenseButtonClicked() {
-		SceneManager.LoadScene("License");
+    public void OnManualButtonClicked() {
+		SceneManager.LoadScene("Manual");
     }
 }
