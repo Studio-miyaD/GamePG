@@ -30,7 +30,7 @@ public class KunaiScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
     if (col.gameObject.tag == "Enemy") {
-        kizunaScript.KizunaDown(7.5f);
+        kizunaScript.KizunaUp(5f);
         Destroy(gameObject);
         }
         string layerName = LayerMask.LayerToName(col.gameObject.layer);

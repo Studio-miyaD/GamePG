@@ -11,8 +11,8 @@ public class ShurikenScript : MonoBehaviour
     void Start()
     {
         //ユニティちゃんオブジェクトを取得
-      player = GameObject.FindWithTag("UnityChan");
-      kizunaScript = GameObject.FindWithTag ("KP").GetComponent<Kizuna> ();
+        player = GameObject.FindWithTag("UnityChan");
+        kizunaScript = GameObject.FindWithTag ("KP").GetComponent<Kizuna> ();
         //rigidbody2Dコンポーネントを取得
         Rigidbody2D rigidbody2D = GetComponent<Rigidbody2D>();
         //ユニティちゃんの向いている向きに弾を飛ばす
@@ -30,7 +30,7 @@ public class ShurikenScript : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
       if (col.gameObject.tag == "Enemy") {
-        kizunaScript.KizunaDown(15f);
+        kizunaScript.KizunaUp(10f);
           Destroy(gameObject);
       }
 

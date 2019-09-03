@@ -21,7 +21,7 @@ public class FirebollController : MonoBehaviour
         Vector2 temp = transform.localScale;
         temp.x = player.transform.localScale.x;
         transform.localScale = temp;
-				kizunaScript.KizunaUp(15f);
+				kizunaScript.KizunaDown(35f);
         //5 秒後に消滅
         Destroy(gameObject, 5);
         
@@ -31,6 +31,7 @@ public class FirebollController : MonoBehaviour
     void OnTriggerEnter2D(Collider2D col)
     {
       if (col.gameObject.tag == "Enemy") {
+        kizunaScript.KizunaUp(10f);
         Destroy(gameObject);
       }
 

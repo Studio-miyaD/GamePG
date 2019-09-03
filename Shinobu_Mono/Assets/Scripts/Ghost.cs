@@ -56,7 +56,7 @@ public class Ghost : MonoBehaviour
 	{
 		if (_isRendered) {
 			if (col.tag == "Fireboll" || col.tag == "Shuriken" || col.tag == "Kunai") {
-				if (col.tag == "Bullet") {
+				if (col.tag == "Fireboll") {
           endurance -= 4;
         } else if (col.tag == "Shuriken") {
           endurance --;

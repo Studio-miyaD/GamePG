@@ -18,6 +18,7 @@ public class Unitychan : MonoBehaviour
 	//Bullet1 fin
 	//gameover
 	public Life lifeScript;
+	public Kizuna kizunaScript;
 	private Rigidbody2D rigidbody2D;
 	private BoxCollider2D boxCollider2D;
 	private CircleCollider2D circleCollider2D;
@@ -39,7 +40,6 @@ public class Unitychan : MonoBehaviour
 	public Text clearText; //ゲームクリアー時に表示するテキスト
 
 	public bool isChange; // 2P であるかの判定
-	public bool isFire = false; // 
 	//効果音
 	public AudioClip attackSound;
 	public AudioClip jumpSound;
@@ -54,6 +54,7 @@ public class Unitychan : MonoBehaviour
 	{
 		anim = GetComponent<Animator>();
 		rigidbody2D = GetComponent<Rigidbody2D>();
+		kizunaScript = GameObject.FindWithTag ("KP").GetComponent<Kizuna> ();
 		//無敵
 		renderer = GetComponent<Renderer> ();
 		audioSource = GetComponent<AudioSource> ();
@@ -94,13 +95,15 @@ public class Unitychan : MonoBehaviour
 			if (Input.GetKeyDown ("left ctrl")) {
 				anim.SetTrigger ("Shot"); 
 				audioSource.PlayOneShot (attackSound);
-				if (isFire) {
-					Instantiate (fireboll, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
-				}
-				else if (isChange) {
+				if (isChange) {
 				Instantiate (kunai, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
 				} else {
 				Instantiate (shuriken, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
+				}
+			}
+			if (Input.GetKeyDown ("f")) {
+				if (kizunaScript.IsFire()) {
+					Instantiate (fireboll, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
 				}
 			}
 		//gameover
@@ -156,7 +159,6 @@ public class Unitychan : MonoBehaviour
 				anim.SetBool ("Dash", true);
 				rigidbody2D.velocity = new Vector2 (speed, rigidbody2D.velocity.y);
 				//5秒後にタイトル画面に戻るCallTitleメソッドを呼び出す
-
 				Invoke ("CallTitle", 5);
 			}
 		}
@@ -227,13 +229,5 @@ public class Unitychan : MonoBehaviour
 	{
 		//タイトル画面へ
 		SceneManager.LoadScene("Title");
-	}
-
-	public void setFire() {
-		if (isFire) {
-			isFire = false;
-		} else {
-			isFire = true;
-		}
 	}
 }

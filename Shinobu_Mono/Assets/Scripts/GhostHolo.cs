@@ -21,7 +21,7 @@ public class GhostHolo : MonoBehaviour
 	public int ghost_m = 1;
 	float TimeCount = 4;
 
-	float attackCount = 1;
+	float attackCount = 2;
 	public GameObject bullet;
 	//効果音
 	public AudioClip enemyDestroy;
@@ -82,7 +82,7 @@ public class GhostHolo : MonoBehaviour
 	{
 		if (_isRendered) {
 			if (col.tag == "Fireboll" || col.tag == "Shuriken" || col.tag == "Kunai") {
-				if (col.tag == "Bullet") {
+				if (col.tag == "Fireboll") {
           endurance -= 4;
         } else if (col.tag == "Shuriken") {
           endurance --;
