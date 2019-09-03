@@ -10,7 +10,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>English</string>
 	<key>CFBundleExecutable</key>
-	<string>Shinobu_Mono</string>
+	<string>Shinobu_Mono._v1.0.1</string>
 	<key>CFBundleGetInfoString</key>
 	<string>Unity Player version 5.6.7f1 (e80cc3114ac1). (c) 2019 Unity Technologies ApS. All rights reserved.</string>
 	<key>CFBundleIconFile</key>
