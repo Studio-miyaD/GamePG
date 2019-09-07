@@ -106,7 +106,7 @@ public class Unitychan : MonoBehaviour
 					Instantiate (fireboll, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
 				}
 			}
-		//gameover
+			//gameover
 			if (gameOver) {
 				//LifeScriptのGameOverメソッドを実行
 				AudioSource.PlayClipAtPoint (gameoverSound, transform.position);
@@ -179,9 +179,11 @@ public class Unitychan : MonoBehaviour
 		if (layerName == "Ground") {
 			jumpCount = 0;
 		}
-		if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "DamageTrap") {
-			audioSource.PlayOneShot (damageSound);
-			StartCoroutine ("Damage");
+		if (!gameClear) {
+			if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "DamageTrap") {
+				audioSource.PlayOneShot (damageSound);
+				StartCoroutine ("Damage");
+			}
 		}
 	}
 
@@ -218,6 +220,7 @@ public class Unitychan : MonoBehaviour
 		if (col.tag == "ClearZone") {
 			//ゲームクリアー
 			gameClear = true;
+			lifeScript.setGameClear();
 			audioSource.PlayOneShot (gameclearSound);
 		}
 		if (col.tag == "Goal") {

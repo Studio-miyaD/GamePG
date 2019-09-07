@@ -12,7 +12,7 @@ public class Life : MonoBehaviour {
 	public GameObject explosion;
 	public Text gameOverText;
 	public bool gameOver = false;
-
+	public bool gameClear = false;
 	public AudioClip gameoverSound;
 	AudioSource audioSource;
 
@@ -25,25 +25,26 @@ public class Life : MonoBehaviour {
 	//gameover
 	void Update()
 	{
-		//HPが0以下になった時
-		if (rt.sizeDelta.y <= 0) {
-			AudioSource.PlayClipAtPoint (gameoverSound, transform.position);
-			//ゲームオーバー判定がfalseなら爆発アニメーションを生成
-			//GameOverメソッドでtrueになるので、1回のみ実行
-			if (gameOver == false) {
-				Instantiate (explosion, unityChan.transform.position + new Vector3 (0, 1, 0), unityChan.transform.rotation);
+		if (!gameClear) {
+			//HPが0以下になった時
+			if (rt.sizeDelta.y <= 0) {
+				AudioSource.PlayClipAtPoint (gameoverSound, transform.position);
+				//ゲームオーバー判定がfalseなら爆発アニメーションを生成
+				//GameOverメソッドでtrueになるので、1回のみ実行
+				if (gameOver == false) {
+					Instantiate (explosion, unityChan.transform.position + new Vector3 (0, 1, 0), unityChan.transform.rotation);
+				}
+				GameOver ();
 			}
-			GameOver ();
-		}
-		//ゲームオーバー判定がtrueの時
-		if (gameOver) {
-			
-			//ゲームオーバーの文字を表示
-			gameOverText.enabled = true;
-			//画面をクリックすると
-			if (Input.GetMouseButtonDown (0) || Input.GetKeyDown ("space")) {
-				//タイトルへ戻る
-				SceneManager.LoadScene("Title");
+			//ゲームオーバー判定がtrueの時
+			if (gameOver) {
+				//ゲームオーバーの文字を表示
+				gameOverText.enabled = true;
+				//画面をクリックすると
+				if (Input.GetMouseButtonDown (0) || Input.GetKeyDown ("space")) {
+					//タイトルへ戻る
+					SceneManager.LoadScene("Title");
+				}
 			}
 		}
 	}
@@ -71,5 +72,8 @@ public class Life : MonoBehaviour {
 	{
 		gameOver = true;
 		Destroy (unityChan);
+	}
+	public void setGameClear() {
+		this.gameClear = true;
 	}
 }
