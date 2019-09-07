@@ -29,7 +29,7 @@ public class KunaiScript : MonoBehaviour
     //追加
     void OnTriggerEnter2D(Collider2D col)
     {
-    if (col.gameObject.tag == "Enemy") {
+    if (col.gameObject.tag == "Enemy" || col.gameObject.tag == "GhostAttack") {
         kizunaScript.KizunaUp(5f);
         Destroy(gameObject);
         }
