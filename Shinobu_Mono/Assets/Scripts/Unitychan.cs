@@ -48,6 +48,7 @@ public class Unitychan : MonoBehaviour
 	public AudioClip gameoverSound;
 	public AudioClip gameclearSound;
 	public AudioClip mainSound;
+	public AudioClip fireSound;
 	AudioSource audioSource;
 
 	void Start()
@@ -103,6 +104,7 @@ public class Unitychan : MonoBehaviour
 			}
 			if (Input.GetKeyDown ("f")) {
 				if (kizunaScript.IsFire()) {
+					audioSource.PlayOneShot (fireSound);
 					Instantiate (fireboll, transform.position + new Vector3 (0f, 1.2f, 0f), transform.rotation);
 				}
 			}
