@@ -12,6 +12,10 @@ public class ManualController : MonoBehaviour {
     public void OnNextButtonClicked() {
 		SceneManager.LoadScene("Manual2");
     }
+
+    public void OnTestButtonClicked() {
+      SceneManager.LoadScene("TestStage");
+    }
 }
 
 
