@@ -16,7 +16,7 @@ public class ScenarioRollScript : MonoBehaviour
     private bool isStopEndRoll;
     //　シーン移動用コルーチン
     private Coroutine endRollCoroutine;
- 
+    public BlinkTextController btcScript;
     // Update is called once per frame
     void Update()
     {
@@ -30,16 +30,16 @@ public class ScenarioRollScript : MonoBehaviour
             } else {
                 Debug.Log("OK");
                 isStopEndRoll = true;
+                btcScript.isTextRender();
             }
         }
     }
- 
+
     IEnumerator GoToNextScene() {
         if(Input.GetKeyDown("space")) {
             StopCoroutine(endRollCoroutine);
             SceneManager.LoadScene("MainStage");
         }
- 
         yield return null;
     }
 }

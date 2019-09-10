@@ -13,6 +13,7 @@ public class Life : MonoBehaviour {
 	public Text gameOverText;
 	public bool gameOver = false;
 	public bool gameClear = false;
+	public BlinkTextController btcScript;
 	public AudioClip gameoverSound;
 	AudioSource audioSource;
 
@@ -34,7 +35,7 @@ public class Life : MonoBehaviour {
 				if (gameOver == false) {
 					Instantiate (explosion, unityChan.transform.position + new Vector3 (0, 1, 0), unityChan.transform.rotation);
 				}
-				GameOver ();
+				setGameOver ();
 			}
 			//ゲームオーバー判定がtrueの時
 			if (gameOver) {
@@ -48,11 +49,13 @@ public class Life : MonoBehaviour {
 			}
 		}
 	}
-	public void LifeDown (int ap) {
+	public void LifeDown (int ap) { 
+		if (gameClear) { return; } 
 		//RectTransformのサイズを取得し、マイナスする
 		rt.sizeDelta -= new Vector2(0, ap);
 	}
 	public void LifeDown (float ap) {
+		if (gameClear) { return;}
 		//RectTransformのサイズを取得し、マイナスする
 		rt.sizeDelta -= new Vector2(0, ap);
 	}
@@ -68,12 +71,14 @@ public class Life : MonoBehaviour {
 	}
 
 	//gameover
-	public void GameOver()
+	public void setGameOver()
 	{
 		gameOver = true;
+		btcScript.isTextRender();
 		Destroy (unityChan);
 	}
 	public void setGameClear() {
-		this.gameClear = true;
+		gameClear = true;
+		btcScript.isTextRender();
 	}
 }
