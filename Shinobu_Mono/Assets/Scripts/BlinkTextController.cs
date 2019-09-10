@@ -6,13 +6,13 @@ using UnityEngine.UI;
 public class BlinkTextController : MonoBehaviour {
 
     //public
-    public float speed = 1.0f;
+    public float speed = 0.8f;
+    public bool _isTextRender = false;
 
     //private
     private Text text;
     private Image image;
     private float time;
-
     private enum ObjType{
         TEXT,
         IMAGE
@@ -24,7 +24,7 @@ public class BlinkTextController : MonoBehaviour {
         if (this.gameObject.GetComponent<Image>()) {
             thisObjType = ObjType.IMAGE;
             image = this.gameObject.GetComponent<Image>();
-        }else if (this.gameObject.GetComponent<Text>()) {
+        } else if (this.gameObject.GetComponent<Text>()) {
             thisObjType = ObjType.TEXT;
             text = this.gameObject.GetComponent<Text>();
         }
@@ -32,11 +32,13 @@ public class BlinkTextController : MonoBehaviour {
 
     void Update () {
         //オブジェクトのAlpha値を更新
-        if (thisObjType == ObjType.IMAGE) {
-            image.color = GetAlphaColor(image.color);
-        }
-        else if (thisObjType == ObjType.TEXT) {
-            text.color = GetAlphaColor(text.color);
+        if (_isTextRender) { 
+            if (thisObjType == ObjType.IMAGE) {
+                image.color = GetAlphaColor(image.color);
+            }
+            else if (thisObjType == ObjType.TEXT) {
+                text.color = GetAlphaColor(text.color);
+            }
         }
     }
 
@@ -46,5 +48,14 @@ public class BlinkTextController : MonoBehaviour {
         color.a = Mathf.Sin(time) * 0.5f + 0.5f;
 
         return color;
+    }
+
+    public void isTextRender() {
+        if (_isTextRender) {
+            _isTextRender = false;
+        }
+        else {
+            _isTextRender = true;
+        }
     }
 }

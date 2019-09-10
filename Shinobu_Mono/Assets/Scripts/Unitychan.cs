@@ -38,7 +38,6 @@ public class Unitychan : MonoBehaviour
 	private bool gameOver = false; // ゲームオーバーになったらタイトルに戻る
 	private bool goal = false; // 建物に入ったらステージを遷移させる
 	public Text clearText; //ゲームクリアー時に表示するテキスト
-
 	public bool isChange; // 2P であるかの判定
 	//効果音
 	public AudioClip attackSound;
@@ -112,7 +111,7 @@ public class Unitychan : MonoBehaviour
 			if (gameOver) {
 				//LifeScriptのGameOverメソッドを実行
 				AudioSource.PlayClipAtPoint (gameoverSound, transform.position);
-				lifeScript.GameOver ();
+				lifeScript.setGameOver ();
 			}
 		}
 	}
